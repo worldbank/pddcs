@@ -1,0 +1,93 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette gives an introduction to the `pddcs` package.
+
+```{r setup}
+library(pddcs)
+```
+
+## Fetch data
+
+The most important function in `pddcs` is `fetch_indicator()`.
+
+`fetch_indicator()` retrieves data for all available sources and indicators. It takes two basic arguments; `indicator`, a [CETS](https://datahelpdesk.worldbank.org/knowledgebase/articles/201175-how-does-the-world-bank-code-its-indicators) type indicator code, and `source`, a specified data source. Currently available sources are [Eurostat](https://ec.europa.eu/eurostat/data/database), [UNPD WPP](https://population.un.org/wpp/), [UNICEF](https://data.unicef.org/) and [WHO](https://www.who.int/data/gho). For a list of available indicators see the package dataset `indicatorlist`.
+
+```{r, eval=FALSE}
+# Check for available indicators 
+?indicatorlist
+```
+
+In order to fetch the most recent population data from Eurostat, we simply specify the indicator code (`'SP.POP.TOTL'`) and the source (`'eurostat'`).
+
+```{r}
+# Fetch population data from Eurostat
+df <- fetch_indicator('SP.POP.TOTL', source = 'eurostat')
+```
+
+`fetch_indicator()` always returns a data frame with `r ncol(df)` columns; `iso3c` (country code) , `year` (year) , `indicator` (indicator code), `value` (data value), `note` (footnote) and `source` (data source).
+
+```{r}
+# Inspect data frame 
+head(df)
+```
+
+## Compare with WDI
+
+Before uploading any data to The Data Collection System (DCS) it can be useful to compare it with the current data in WDI. This can be done with `compare_with_wdi()`, which only takes one argument; a data frame as returned by `fetch_indicator().`
+
+```{r}
+# Compare with WDI
+dl <- compare_with_wdi(df)
+```
+
+`compare_with_wdi()` returns a list of three data frames; the original dataset (`source`), the data retrieved from WDI (`wdi`) and the rows in the source dataset that are not present in WDI (`not_in_wdi`).
+
+```{r}
+# Inspect list
+str(dl)
+```
+
+Here we select the rows that don't match.
+
+```{r}
+# Select rows with 'new' data
+df <- dl$not_in_wdi
+```
+
+## Format data
+
+DCS requires a very specific format in order to upload files to the system. `pddcs` has a set of functions to help to help simplify this process. `format_dcs()` takes two arguments; `df` (a data frame in `pddcs` format) and `type`, which specifies if the the dataset should be convert to data or metadata format.
+
+```{r}
+# Convert to DCS 'data' format 
+df <- format_dcs(df, type = 'data')
+head(df)
+```
+
+## Write data
+
+We can then write this data frame to file of our choosing with `write_dcs()`.
+
+`write_dcs()` checks that the data has the correct format and ensure that the resulting file has the correct sheet names (i.e. `'Sheet1'` for data and `'Country-Series-Time_Table'` for metadata).
+
+```{r, eval=FALSE}
+# Write to a DCS formatted file  
+write_dcs(df, path = 'data-SP.POP.TOTL-eurostat.xlsx', type = 'data')
+File saved to data-SP.POP.TOTL-eurostat.xlsx.
+```
+
+
