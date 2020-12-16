@@ -8,10 +8,10 @@ standardize_all <- function(df) {
   df <- df[order(df$iso3c, df$year),]
 
   # Make sure value is numeric
-  df$value <- as.numeric(df$value)
+  df$value <- as.numeric(as.character(df$value))
 
   # Make sure year is numeric
-  df$year <- as.numeric(df$year)
+  df$year <- as.numeric(as.character(df$year))
 
   # Convert to data frame
   df <- as.data.frame(df)

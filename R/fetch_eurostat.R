@@ -35,18 +35,23 @@ send_eurostat_query <- function(indicator) {
   # Total population
   if (indicator == 'SP.POP.TOTL') {
     id <- 'demo_gind'
-    filter <- list(indic_de = 'AVG', geo = countries,
-                   time_format = 'num')
-  }
+    df <- suppressMessages(
+      eurostat::get_eurostat(id = id, keepFlags = TRUE, time_format = 'num')
+      )
+    df <- df[df$indic_de == 'AVG',]
+
+    }
 
   # Crude birth rate
   if (indicator == 'SP.DYN.CBRT.IN') {
     id <- 'demo_gind'
-    filter <- list(indic_de = 'GBIRTHRT', geo = countries,
-                   time_format = 'num')
+    df <- suppressMessages(
+      eurostat::get_eurostat(id = id, keepFlags = TRUE, time_format = 'num')
+      )
+    df <- df[df$indic_de == 'GBIRTHRT',]
   }
 
-  df <- eurostat::get_eurostat_json(id, filters = filter)
+  df <- df[df$geo %in% countries,]
 
   return(df)
 
@@ -65,12 +70,12 @@ standardize_eurostat <- function(df, indicator) {
   # Add WDI code
   df$indicator <- indicator
 
-  # Select and rename columns
-  df <- df[c('iso3c', 'time', 'indicator', 'values')]
-  names(df) <- c('iso3c', 'year', 'indicator', 'value')
-
   # Add note column
-  df$note <- 'Data source: Eurostat'
+  df$note <- recode_eurostat_footnotes(df$flags)
+
+  # Select and rename columns
+  df <- df[c('iso3c', 'time', 'indicator', 'values', 'note')]
+  names(df) <- c('iso3c', 'year', 'indicator', 'value', 'note')
 
   # General standardization
   df <- standardize_all(df)
@@ -78,4 +83,20 @@ standardize_eurostat <- function(df, indicator) {
   return(df)
 }
 
+#' recode_eurostat_footnotes
+#' @param x character: A vector with Eurostat flags.
+#' @return character
+#' @noRd
+recode_eurostat_footnotes <- function(x) {
+  dplyr::recode(
+    x,
+    'b' = 'Break in series.',
+    'e' = 'Estimated by the government.',
+    'p' = 'Preliminary.',
+    'ep' = 'Estimated by the government. Preliminary.',
+    'be' = 'Break in series. Estimated by the government.',
+    'bp' = 'Break in series. Preliminary.',
+    'bep' = 'Break in series. Estimated by the government. Preliminary.'
+  )
+}
 

@@ -7,7 +7,6 @@
 #' @param path character: A file name to write to.
 #' @param type character: Type, either 'data' or 'meta'.
 #'
-#' @return data.frame
 #' @examples
 #' \dontrun{
 #' # Load example data

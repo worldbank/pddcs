@@ -97,7 +97,7 @@ standardize_wpp <- function(estimates, medium, indicator) {
   df <- df[c('iso3c', 'year', 'indicator', 'value')]
 
   # Add note column
-  df$note <- 'Data source: United Nations World Population Prospects'
+  df$note <- ''
 
   # General standardization
   df <- standardize_all(df)
