@@ -14,7 +14,7 @@ if (getRversion() >= '2.15.1')
 #'
 #' You can use the abbreviation of survey sources in the `note` column to
 #' prioritize between different surveys if there are duplicated country-years.
-#' Typical use cases are MIS, DHS, MICS and AIDS. The surveys are prioritized in
+#' Typical use cases are MIS, DHS, MICS and AIS. The surveys are prioritized in
 #' the order they are listed, e.g. if `priority = c('X', 'Y', 'Z')`, then X will
 #' be chosen before Y, which again will be chosen before Z.
 #'
@@ -27,7 +27,7 @@ if (getRversion() >= '2.15.1')
 #' data("bednets")
 #' df <- filter_unicef(bednets, priority = c('MIS', 'DHS', 'MICS'))
 #'
-#' @export
+#' @keywords internal
 filter_unicef <- function(df, priority) {
 
   if (length(priority) > 4)
@@ -35,7 +35,7 @@ filter_unicef <- function(df, priority) {
 
   # Add count column for duplicated rows
   df <- df %>%
-    dplyr::group_by(iso3c, year, indicator, source) %>%
+    dplyr::group_by(iso3c, year, indicator) %>% #source
     dplyr::mutate(n = dplyr::n())
 
   # Add priority columns
@@ -44,7 +44,7 @@ filter_unicef <- function(df, priority) {
   }
 
   # Select rows to keep
-  df <- tidyfast::dt_nest(df, iso3c, year, indicator, source, n)
+  df <- tidyfast::dt_nest(df, iso3c, year, indicator, n) #source
   df$data_keep <- purrr::map(df$data, select_unicef_rows)
   df$data <- NULL
   df <- tidyfast::dt_unnest(df, data_keep)
@@ -53,7 +53,7 @@ filter_unicef <- function(df, priority) {
   df <- as.data.frame(df)
 
   # Select columns
-  df <- df[c('iso3c', 'year', 'indicator', 'value', 'note', 'source')]
+  df <- df[c('iso3c', 'year', 'indicator', 'value', 'note')] #, 'source'
 
   return(df)
 
@@ -65,8 +65,18 @@ filter_unicef <- function(df, priority) {
 #' @noRd
 select_unicef_rows <- function(df) {
 
+  df <- as.data.frame(df)
+
   # Return as is if only one row
   if (nrow(df) == 1) return(df)
+
+  # Return as is if there are no priority orders to choose from
+  df_has_pri <- df[grepl('has_pri', names(df))]
+  df_has_pri <- as.vector(as.matrix(df_has_pri))
+  if (all(df_has_pri == FALSE)) {
+    rlang::inform('Found one instance with no priority. Returning duplicated rows.')
+    return(df)
+  }
 
   # Select rows to keep
   if (any(df$has_pri_1)) {

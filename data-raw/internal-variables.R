@@ -1,11 +1,10 @@
+# NB! Rewrite this to fetch from WDI API
+
+# Create vector of WDI aggregated codes
 x <- wbgUsefulData::wbCountryMeta
 x <- x[x$region_value == 'Aggregates',]
 wb_aggreate_codes <- c(x$iso3, '')
 wb_aggreate_codes <- unique(wb_aggreate_codes)
-
-#usethis::use_data(wb_aggreate_codes, internal = TRUE, overwrite = TRUE)
-
-
 
 # Create vectors with WDI indicator codes
 eurostat_indicators <- c('SP.POP.TOTL', 'SP.DYN.CBRT.IN')
@@ -23,7 +22,11 @@ who_indicators <-
     'SH.PRG.ANEM', 'SP.REG.DTHS.ZS', 'SH.MED.BEDS.ZS', 'SH.PRV.SMOK',
     'SH.PRV.SMOK.FE', 'SH.PRV.SMOK.MA', 'SH.MED.NUMW.P3', 'SH.MED.PHYS.ZS',
     'SH.STA.OWAD.FE.ZS', 'SH.STA.OWAD.MA.ZS', 'SH.STA.OWAD.ZS', 'SH.PRG.SYPH.ZS')
-
+unicef_survey_acronyms <-
+  c('NS', 'DHS KIR',  'DHS-MICS', 'DHS-Style', 'DHS', 'MICS', 'MIS', 'AIS',
+    'AISMIS', 'ECOM', 'ENISED', 'IHLCA', 'NFHS', 'PNDS', 'SHHS', 'FHS',
+    'EIP', 'ENSOMD', 'ENPSF', 'EDSFPAPFAM', 'ENHOGAR', 'ENSMI', 'MCSDHM',
+    'EASF', 'NUCS', 'NHC', 'PHS', 'RCOS', 'NHMS', 'NHS', 'MoH')
 
 # Save internal package vectors
 usethis::use_data(eurostat_indicators,
@@ -31,6 +34,7 @@ usethis::use_data(eurostat_indicators,
                   unicef_indicators,
                   who_indicators,
                   wb_aggreate_codes,
+                  unicef_survey_acronyms,
                   internal = TRUE,
                   overwrite = TRUE)
 
