@@ -13,9 +13,6 @@ write_dcs(df, path, type = c("data", "meta"))
 
 \item{type}{character: Type, either 'data' or 'meta'.}
 }
-\value{
-data.frame
-}
 \description{
 Write a DCS formatted dataset to a file that can be uploaded to the Data
 Collection System.

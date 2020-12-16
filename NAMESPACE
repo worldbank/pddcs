@@ -2,7 +2,6 @@
 
 export(compare_with_wdi)
 export(fetch_indicator)
-export(filter_unicef)
 export(format_dcs)
 export(write_dcs)
 importFrom(magrittr,"%>%")

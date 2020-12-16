@@ -23,7 +23,7 @@ priority order.
 \details{
 You can use the abbreviation of survey sources in the \code{note} column to
 prioritize between different surveys if there are duplicated country-years.
-Typical use cases are MIS, DHS, MICS and AIDS. The surveys are prioritized in
+Typical use cases are MIS, DHS, MICS and AIS. The surveys are prioritized in
 the order they are listed, e.g. if \code{priority = c('X', 'Y', 'Z')}, then X will
 be chosen before Y, which again will be chosen before Z.
 }
@@ -33,3 +33,4 @@ data("bednets")
 df <- filter_unicef(bednets, priority = c('MIS', 'DHS', 'MICS'))
 
 }
+\keyword{internal}
