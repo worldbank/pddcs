@@ -20,7 +20,7 @@ fetch_unpd <- function(indicator) {
   df_estimates <- readxl::read_excel(tmp, 'ESTIMATES', skip = 16)
   df_medium <- readxl::read_excel(tmp, 'MEDIUM VARIANT', skip = 16)
 
-  # Standarize format
+  # Standardize format
   df <- standardize_wpp(df_estimates, df_medium, indicator)
 
   return(df)
