@@ -35,6 +35,22 @@ UNICEF:
 \item SH.STA.ANV4.ZS
 \item SH.STA.ORTH
 \item SN.ITK.VITA.ZS
+\item SH.MLR.IPTP.ZS
+\item SH.STA.ARIC.ZS
+\item SH.STA.BRTC.ZS
+\item SH.STA.BFED.ZS
+\item SH.STA.BRTW.ZS
+\item SN.ITK.SALT.ZS
+\item SH.STA.IYCF.ZS
+\item SH.STA.ORCF.ZS
+\item SH.STA.ANVC.ZS
+\item SP.REG.BRTH.ZS
+\item SP.REG.BRTH.UR.ZS
+\item SP.REG.BRTH.RU.ZS
+\item SH.HIV.KNOW.FE.ZS
+\item SH.HIV.KNOW.MA.ZS
+\item SH.CON.AIDS.FE.ZS
+\item SH.CON.AIDS.MA.ZS
 }
 
 WHO:

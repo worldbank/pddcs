@@ -69,7 +69,7 @@ select_unicef_rows <- function(df) {
   df_has_pri <- df[grepl('has_pri', names(df))]
   df_has_pri <- as.vector(as.matrix(df_has_pri))
   if (all(df_has_pri == FALSE)) {
-    rlang::inform('Found one instance with no priority. Returning duplicated rows.')
+    rlang::inform('Found an instance with no priority. Returning duplicated rows.')
     return(df)
   }
 
