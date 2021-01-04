@@ -22,11 +22,6 @@ if (getRversion() >= '2.15.1')
 #' @param priority character: A vector with survey sources to prioritize
 #'   between. See details.
 #' @return data.frame
-#' @examples
-#' # Select MIS, then DHS, then MICS for duplicated country-years
-#' data("bednets")
-#' df <- filter_unicef(bednets, priority = c('MIS', 'DHS', 'MICS'))
-#'
 #' @keywords internal
 filter_unicef <- function(df, priority) {
 
