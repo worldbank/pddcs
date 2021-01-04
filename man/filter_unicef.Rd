@@ -27,10 +27,4 @@ Typical use cases are MIS, DHS, MICS and AIS. The surveys are prioritized in
 the order they are listed, e.g. if \code{priority = c('X', 'Y', 'Z')}, then X will
 be chosen before Y, which again will be chosen before Z.
 }
-\examples{
-# Select MIS, then DHS, then MICS for duplicated country-years
-data("bednets")
-df <- filter_unicef(bednets, priority = c('MIS', 'DHS', 'MICS'))
-
-}
 \keyword{internal}

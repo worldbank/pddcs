@@ -1,3 +1,6 @@
+#' @importFrom stringi stri_unescape_unicode
+NULL
+
 #' Fetch data from UNICEF
 #'
 #' Fetch data from UNICEF API.
@@ -130,25 +133,26 @@ recode_unicef_survey_acronym <- function(x) {
     'MIS' = 'Malaria Indicator Survey',
     'AIS' = 'AIDS Indicator Survey',
     'AISMIS' = 'HIV/AIDS and Malaria Indicator Survey',
-    'ECOM' = 'Enquête laise auprès des Ménages pour l\'évaluation de la pauvreté',
-    'ENISED'  = 'Etude Nationale d\'Evaluation d\'Indicateurs SocioEconomiques et Démographiques 2015',
+    'ECOM' = 'Enqu\\u00eate laise aupr\\u00e8s des M\\u00e9nages pour l\'\\u00e9valuation de la pauvret\\u00e9',
+    'ENISED'  = 'Etude Nationale d\'Evaluation d\'Indicateurs SocioEconomiques et D\\u00e9mographiques',
     'IHLCA'  = 'Integrated Household Living Conditions Survey',
     'NFHS' = 'National Family Health Survey',
-    'PNDS' = 'Pesquisa Nacional de Demografia e Saúde da Criança e da Mulher',
+    'PNDS' = 'Pesquisa Nacional de Demografia e Sa\\u00fade da Crian\\u00e7a e da Mulher',
     'SHHS' = 'Sudan Household and Health Survey',
     'FHS' = 'Family Health Survey',
-    'EIP' = 'République du Enquête sur les Indicateurs du Paludisme',
-    'ENSOMD' = 'L’Enque^te Nationale sur le Suivi des indicateurs des Objectifs du Mille´naire pour le De´veloppement',
+    'EIP' = 'R\\u00e9publique du Enqu\\u00eate sur les Indicateurs du Paludisme',
+    'ENSOMD' = 'L\\u2019Enque^te Nationale sur le Suivi des indicateurs des Objectifs du Mille\\u00b4naire pour le De\\u00b4veloppement',
     'ENPSF' = 'National Survey on Population and Family Health',
     'EDSFPAPFAM' = 'Deuxieme Enquete enne sur la Sante de la Famille',
-    'ENHOGAR' = 'Encuesta Nacional de Hogares de Propósitos Múltiples',
+    'ENHOGAR' = 'Encuesta Nacional de Hogares de Prop\\u00f3sitos M\\u00faltiples',
     'ENSMI' = 'Encuesta Nacional de Salud. Materno Infantil',
     'MCSDHM' = 'Multisectoral Continuous Survey Demographic and Health Module',
     # 'EASF' = 'Family Health Survey',
     'PHS' = 'Population and Health Survey',
     'RCOS' = 'Rapid Survey on Children',
     'MoH' = 'MoH PNDS'
-  )
+  ) %>%
+    stringi::stri_unescape_unicode()
 }
 
 #' apply_filter_unicef

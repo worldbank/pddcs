@@ -30,6 +30,7 @@ Imports:
     tidyfast,
     purrr,
     magrittr,
+    stringi, 
     rlang,
     tools,
     countrycode,
