@@ -46,6 +46,7 @@ write_dcs <- function(df, path, type = c('data', 'meta')) {
   }
 
   rlang::inform(sprintf('File saved to %s.', path))
+  invisible(path)
 }
 
 #' check_inputs_write_dcs
