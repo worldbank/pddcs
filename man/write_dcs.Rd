@@ -17,6 +17,9 @@ write_dcs(df, path, type = c("data", "meta"))
 Write a DCS formatted dataset to a file that can be uploaded to the Data
 Collection System.
 }
+\details{
+\lifecycle{experimental}
+}
 \examples{
 \dontrun{
 # Load example data

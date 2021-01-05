@@ -2,6 +2,8 @@
 #'
 #' Convert a dataset retrieved with [fetch_indicator()] to DCS format.
 #'
+#' \lifecycle{experimental}
+#'
 #' @inheritParams compare_with_wdi
 #' @param type character: Type, either 'data' or 'meta'.
 #' @return data.frame

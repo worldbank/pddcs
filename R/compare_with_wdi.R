@@ -2,6 +2,8 @@
 #'
 #' Compare a dataset retrieved with [fetch_indicator()] with WDI.
 #'
+#' \lifecycle{experimental}
+#'
 #' `compare_with_wdi()` returns a list of three data frames; the original dataset
 #' (`source`), the data retrieved from WDI (`wdi`) and the rows in the source
 #' dataset that are not present in WDI (`not_in_wdi`).

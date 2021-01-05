@@ -30,10 +30,12 @@ Imports:
     tidyfast,
     purrr,
     magrittr,
-    stringi, 
+    stringi,
     rlang,
     tools,
     countrycode,
     eurostat,
-    jsonlite
+    jsonlite,
+    lifecycle
 VignetteBuilder: knitr
+RdMacros: lifecycle

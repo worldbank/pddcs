@@ -2,6 +2,8 @@
 #'
 #' Fetch data for a specified indicator from available sources.
 #'
+#' \lifecycle{experimental}
+#'
 #' See `?indicatorlist` for an overview of available indicators.
 #'
 #' @param indicator character: A CETS type indicator code. See details.

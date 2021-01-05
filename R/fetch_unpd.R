@@ -117,8 +117,8 @@ standardize_wpp <- function(estimates, medium, indicator) {
 standardize_wpp_sp_pop_totl <- function(estimates, medium, vars) {
 
   # Remove current year column from estimates (e.g. 2020)
-  # estimates$`2020` <- NULL
-  estimates[format(Sys.Date(), '%Y')] <- NULL
+  estimates$`2020` <- NULL
+  #estimates[format(Sys.Date(), '%Y')] <- NULL
 
   # Remove unnecessary columns
   estimates <-

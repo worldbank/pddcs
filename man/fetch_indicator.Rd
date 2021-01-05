@@ -18,6 +18,8 @@ data.frame
 Fetch data for a specified indicator from available sources.
 }
 \details{
+\lifecycle{experimental}
+
 See \code{?indicatorlist} for an overview of available indicators.
 }
 \examples{

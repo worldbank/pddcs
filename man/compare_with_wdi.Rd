@@ -17,6 +17,8 @@ list
 Compare a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()}} with WDI.
 }
 \details{
+\lifecycle{experimental}
+
 \code{compare_with_wdi()} returns a list of three data frames; the original dataset
 (\code{source}), the data retrieved from WDI (\code{wdi}) and the rows in the source
 dataset that are not present in WDI (\code{not_in_wdi}).

@@ -18,6 +18,9 @@ data.frame
 \description{
 Convert a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()}} to DCS format.
 }
+\details{
+\lifecycle{experimental}
+}
 \examples{
 # Load example data
 data("bednets")
