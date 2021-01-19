@@ -140,31 +140,31 @@ recode_unicef_codes <- function(indicator) {
 
   dplyr::recode(indicator,
                 # Pregnant women receiving prenatal care of at least four visits
-                'SH.STA.ANV4.ZS' = 'A2',
+                'SH.STA.ANV4.ZS' = 'A2.PCT..TOTAL',
                 # IPT of malaria in pregnancy (% of pregnant women)
-                'SH.MLR.IPTP.ZS' = 'A3',
+                'SH.MLR.IPTP.ZS' = 'A3.PCT..TOTAL',
                 # Births attended by skilled health staff (% of total)
-                'SH.STA.BRTC.ZS' = 'A6',
+                'SH.STA.BRTC.ZS' = 'A6.PCT..TOTAL',
                 # Use of insecticide-treated bed nets
-                'SH.MLR.NETS.ZS' = 'A16',
+                'SH.MLR.NETS.ZS' = 'A16.PCT..TOTAL',
                 # ARI treatment (% of children under 5 taken to a health provider)
-                'SH.STA.ARIC.ZS' = 'A17',
+                'SH.STA.ARIC.ZS' = 'A17.PCT..TOTAL',
                 # Diarrhea treatment (ORS packet)
-                'SH.STA.ORTH' = 'A19',
+                'SH.STA.ORTH' = 'A19.PCT..TOTAL',
                 # Exclusive breastfeeding (% of children under 6 months)
-                'SH.STA.BFED.ZS' = 'A26',
+                'SH.STA.BFED.ZS' = 'A26.PCT..TOTAL',
                 # Vitamin A supplementation coverage rate
-                'SN.ITK.VITA.ZS' = 'A29',
+                'SN.ITK.VITA.ZS' = 'A29.PCT..TOTAL',
                 # Low-birthweight babies (% of births)
-                'SH.STA.BRTW.ZS' = '.NT_BW_LBW',
+                'SH.STA.BRTW.ZS' = '.NT_BW_LBW._T._T._T._T._T._T',
                 # Consumption of iodized salt (% of households),
-                'SN.ITK.SALT.ZS' = '.NT_IOD_ANY_TH',
+                'SN.ITK.SALT.ZS' = '.NT_IOD_ANY_TH._T._T._T._T._T._T',
                 # Infant and young child feeding practices, all 3 IYCF
                 'SH.STA.IYCF.ZS' = '.NT_CF_MAD._T.M6T23._T._T._T._T',
                 # Diarrhea treatment (oral rehydration and continued feeding)
-                'SH.STA.ORCF.ZS' = '.MNCH_ORTCF',
+                'SH.STA.ORCF.ZS' = '.MNCH_ORTCF._T.Y0T4._T._T._T._T.',
                 # Pregnant women receiving prenatal care (%)
-                'SH.STA.ANVC.ZS' = '.MNCH_ANC1',
+                'SH.STA.ANVC.ZS' = '.MNCH_ANC1.F.Y15T49._T._T._T._T.',
                 # Completeness of birth registration (%)
                 'SP.REG.BRTH.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T._T._T',
                 # Completeness of birth registration, urban (%)
