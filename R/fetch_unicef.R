@@ -69,6 +69,25 @@ standardize_unicef <- function(df, indicator) {
   # that need to be removed with filter_unicef()
   df$year <- sub('-.*', '', df$year)
 
+  # Select latest year of survey
+  # based on information in footnote
+  tmp <- regmatches(df$note, gregexpr('\\d{4}-\\d{2}', df$note))
+  tmp2 <- regmatches(df$note, gregexpr('\\d{4}-\\d{4}', df$note))
+  df$year_tmp <-
+    ifelse(grepl('\\d{4}-\\d{2}', df$note),
+           paste0(substr(tmp, 1, 2), substr(tmp, 6, 7)),
+           df$year)
+  df$year_tmp <-
+    ifelse(grepl('\\d{4}-\\d{4}', df$note),
+           substr(tmp2, 6, 9),
+           df$year_tmp)
+  df$year_tmp <-
+    ifelse(df$year_tmp == '1900' & df$year == '1999',
+           '2000',
+           df$year_tmp)
+  df$year <- df$year_tmp
+  df$year_tmp <- NULL
+
   # Filter surveys
   df <- apply_filter_unicef(df)
 
