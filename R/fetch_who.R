@@ -30,6 +30,9 @@ standardize_who <- function(df, indicator) {
   # Select rows with country data
   df <- df[df$SpatialDimType == 'COUNTRY', ]
 
+  # Select rows that has no second dimension (eg. AGEGROUP)
+  df <- df[is.na(df$Dim2), ]
+
   # Add WDI code
   df$indicator <- indicator
 
@@ -47,6 +50,8 @@ standardize_who <- function(df, indicator) {
   if (indicator == 'SH.MED.NUMW.P3')
     df$value <-  df$value / 10 # Convert data per 10,000 to per 1,000
   if (indicator == 'SH.MED.PHYS.ZS')
+    df$value <-  df$value / 10 # Convert data per 10,000 to per 1,000
+  if (indicator == 'SH.MED.BEDS.ZS')
     df$value <-  df$value / 10 # Convert data per 10,000 to per 1,000
 
   return(df)
@@ -74,12 +79,12 @@ create_url_who <- function(indicator) {
   btsx_indicators <- c('SH.DYN.NCOM.ZS', 'SH.STA.SUIC.P5',
                        'SH.ALC.PCAP.LI', 'SH.STA.AIRP.P5',
                        'SH.STA.POIS.P5', 'SH.PRV.SMOK',
-                       'SH.STA.OWAD.ZS')
+                       'SH.STA.OWAD.ZS', 'SH.STA.WASH.P5')
 
   # Add filters
-  if (grepl('MA([.][A-Z]{2})?$', indicator)) {
+  if (grepl('[.]MA([.][A-Z]{2})?', indicator)) {
     the_url <- paste0(the_url, '?$filter=Dim1%20eq%20%27MLE%27')
-  } else if (grepl('FE[.][A-Z]{2}$', indicator)) {
+  } else if (grepl('[.]FE([.][A-Z]{2})?', indicator)) {
     the_url <- paste0(the_url, '?$filter=Dim1%20eq%20%27FMLE%27')
   } else if (indicator %in% btsx_indicators) {
     the_url <- paste0(the_url, '?$filter=Dim1%20eq%20%27BTSX%27')
