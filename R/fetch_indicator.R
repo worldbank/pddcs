@@ -2,7 +2,7 @@
 #'
 #' Fetch data for a specified indicator from available sources.
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("stable")`
 #'
 #' See `?indicatorlist` for an overview of available indicators.
 #'
@@ -19,11 +19,48 @@
 #'
 #' # Fetch bed nets data from UNICEF
 #' df <- fetch_indicator('SH.MLR.NETS.ZS', source = 'unicef')
+#'
+#' # Fetch multiple indicators from the same source
+#' df <- fetch_indicator(
+#'  indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
+#'  source = 'unicef')
+#'
+#' # Fetch multiple indicators from different sources
+#' df <- fetch_indicator(
+#'  indicator = c('SH.STA.ANV4.ZS', 'SP.POP.TOTL'),
+#'  source = c('unicef', 'eurostat'))
 #' }
 #' @export
-fetch_indicator <- function(indicator,
-                            source = c('eurostat', 'unicef',
-                                       'unpd', 'who')) {
+fetch_indicator <- function(indicator, source) {
+
+  # Repeat source if length is 1
+  if (length(source) == 1)
+    source <- rep(source, length(indicator))
+
+  # Check that lengths match
+  if (length(indicator) != length(source)) {
+    rlang::abort(
+      '`source` must either be of length 1 or have the same length as `indicator`.')
+  }
+
+  # Fetch data
+  dl <- purrr::map2(indicator, source, .f = fetch_indicator_single)
+
+  # Combine to data frame
+  df <- data.table::rbindlist(dl)
+  df <- as.data.frame(df)
+
+  return(df)
+
+}
+
+#' Fetch indicator (single)
+#'
+#' @inheritParams fetch_indicator
+#' @keywords internal
+fetch_indicator_single <- function(indicator,
+                                   source = c('eurostat', 'unicef',
+                                              'unpd', 'who')) {
   # Match argument
   source <- match.arg(source)
 

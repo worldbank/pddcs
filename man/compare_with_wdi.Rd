@@ -17,7 +17,7 @@ list
 Compare a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()}} with WDI.
 }
 \details{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{compare_with_wdi()} returns a list of three data frames; the original dataset
 (\code{source}), the data retrieved from WDI (\code{wdi}) and the rows in the source

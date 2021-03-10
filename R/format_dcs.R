@@ -2,7 +2,7 @@
 #'
 #' Convert a dataset retrieved with [fetch_indicator()] to DCS format.
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams compare_with_wdi
 #' @param type character: Type, either 'data' or 'meta'.

@@ -19,7 +19,7 @@ data.frame
 Convert a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()}} to DCS format.
 }
 \details{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 # Load example data
