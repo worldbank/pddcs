@@ -79,7 +79,8 @@ create_url_who <- function(indicator) {
   btsx_indicators <- c('SH.DYN.NCOM.ZS', 'SH.STA.SUIC.P5',
                        'SH.ALC.PCAP.LI', 'SH.STA.AIRP.P5',
                        'SH.STA.POIS.P5', 'SH.PRV.SMOK',
-                       'SH.STA.OWAD.ZS', 'SH.STA.WASH.P5')
+                       'SH.STA.OWAD.ZS', 'SH.STA.WASH.P5',
+                       'SH.STA.TRAF.P5')
 
   # Add filters
   if (grepl('[.]MA([.][A-Z]{2})?', indicator)) {
@@ -119,12 +120,16 @@ recode_who_codes <- function(indicator) {
                 'SH.STA.AIRP.MA.P5' = 'SDGAIRBODA',
                 # Mortality rate attributed to exposure to unsafe WASH service
                 'SH.STA.WASH.P5' = 'SDGWSHBOD',
+                'SH.STA.WASH.FE.P5' = 'SDGWSHBOD',
+                'SH.STA.WASH.MA.P5' = 'SDGWSHBOD',
                 # Mortality rate attributed to unintentional poisoning
                 'SH.STA.POIS.P5' = 'SDGPOISON',
                 'SH.STA.POIS.P5.MA' = 'SDGPOISON',
                 'SH.STA.POIS.P5.FE' = 'SDGPOISON',
                 # Estimated road traffic death rate
                 'SH.STA.TRAF.P5' = 'RS_198',
+                'SH.STA.TRAF.FE.P5' = 'RS_198',
+                'SH.STA.TRAF.MA.P5' = 'RS_198',
                 # Prevalence of anaemia in children under 5 years
                 'SH.ANM.CHLD.ZS' = 'ANEMIAU5',
                 # Prevalence of anaemia in non-pregnant women
