@@ -35,15 +35,17 @@ df <- fetch_indicator('SP.POP.TOTL', source = 'eurostat')
 
 **Fetch multiple indicators:**
 
-    # Fetch multiple indicators from the same source
-    df <- fetch_indicator(
-     indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
-     source = 'unicef')
+``` r
+# Fetch multiple indicators from the same source
+df <- fetch_indicator(
+  indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
+  source = 'unicef')
 
-    # Fetch multiple indicators from different sources
-    df <- fetch_indicator(
-     indicator = c('SH.STA.ANV4.ZS', 'SP.POP.TOTL'),
-     source = c('unicef', 'eurostat'))
+# Fetch multiple indicators from different sources
+df <- fetch_indicator(
+  indicator = c('SH.STA.ANV4.ZS', 'SP.POP.TOTL'),
+  source = c('unicef', 'eurostat'))
+```
 
 **Compare with WDI:**
 
