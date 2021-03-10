@@ -2,7 +2,7 @@
 #'
 #' Compare a dataset retrieved with [fetch_indicator()] with WDI.
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("stable")`
 #'
 #' `compare_with_wdi()` returns a list of three data frames; the original dataset
 #' (`source`), the data retrieved from WDI (`wdi`) and the rows in the source
@@ -20,7 +20,9 @@
 compare_with_wdi <- function(df) {
 
   # Fetch data from WDI
-  df_wdi <- fetch_wdi(unique(df$indicator))
+  dl_wdi <- purrr::map(unique(df$indicator), fetch_wdi)
+  df_wdi <- data.table::rbindlist(dl_wdi)
+  df_wdi <- as.data.frame(df_wdi)
 
   # Compare datasets (left excluding join)
   df_diff <-  dplyr::anti_join(df, df_wdi,

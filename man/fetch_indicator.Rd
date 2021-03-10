@@ -4,7 +4,7 @@
 \alias{fetch_indicator}
 \title{Fetch indicator}
 \usage{
-fetch_indicator(indicator, source = c("eurostat", "unicef", "unpd", "who"))
+fetch_indicator(indicator, source)
 }
 \arguments{
 \item{indicator}{character: A CETS type indicator code. See details.}
@@ -18,7 +18,7 @@ data.frame
 Fetch data for a specified indicator from available sources.
 }
 \details{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 See \code{?indicatorlist} for an overview of available indicators.
 }
@@ -32,5 +32,15 @@ df <- fetch_indicator('SP.POP.TOTL', source = 'unpd')
 
 # Fetch bed nets data from UNICEF
 df <- fetch_indicator('SH.MLR.NETS.ZS', source = 'unicef')
+
+# Fetch multiple indicators from the same source
+df <- fetch_indicator(
+ indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
+ source = 'unicef')
+
+# Fetch multiple indicators from different sources
+df <- fetch_indicator(
+ indicator = c('SH.STA.ANV4.ZS', 'SP.POP.TOTL'),
+ source = c('unicef', 'eurostat'))
 }
 }

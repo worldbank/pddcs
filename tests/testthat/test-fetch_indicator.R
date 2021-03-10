@@ -9,7 +9,7 @@ indicators <- c('SP.DYN.CBRT.IN', 'SP.POP.TOTL', 'SP.DYN.TFRT.IN', 'SP.POP.AG00.
 sources <- c(rep('eurostat', 2), rep('unpd', 3), rep('unicef', 5), rep('who', 5))
 
 # Tests
-test_that('fetch_indicator() works for all available indicators', {
+test_that('fetch_indicator() works for a sample of available indicators', {
   skip_if_offline()
   purrr::map2(indicators, sources, .f = function(x, y) {
     df <- fetch_indicator(x, source = y)

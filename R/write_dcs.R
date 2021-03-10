@@ -3,7 +3,7 @@
 #' Write a DCS formatted dataset to a file that can be uploaded to the Data
 #' Collection System.
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge("stable")`
 #'
 #' @param df data.frame: A DCS formatted data frame. Output of `format_dcs()`.
 #' @param path character: A file name to write to.

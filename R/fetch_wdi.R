@@ -24,9 +24,18 @@ fetch_wdi <- function(indicator) {
 #' @return character
 #' @noRd
 create_url_wdi <- function(indicator) {
+
+  # base_url <- paste0('https://api.worldbank.org/v2/country/all/indicator/%s',
+  #                    '?source=%s&format=json&per_page=%s&page=1')
+  # the_url <- sprintf(base_url,
+  #                    paste(indicator, collapse = ';'),
+  #                    length(indicator),
+  #                    32500)
+
   base_url <- paste0('https://api.worldbank.org/v2/country/all/indicator/%s',
-                     '?format=json&per_page=%s&page=1&source=2')
-  the_url <- sprintf(base_url, paste(indicator, collapse = ';'), 32500)
+                     '?format=json&per_page=%s&page=1')
+  the_url <- sprintf(base_url,indicator, 32500)
+
   return(the_url)
 }
 

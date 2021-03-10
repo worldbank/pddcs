@@ -18,7 +18,7 @@ Write a DCS formatted dataset to a file that can be uploaded to the Data
 Collection System.
 }
 \details{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{
