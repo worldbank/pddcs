@@ -1,0 +1,54 @@
+---
+title: "Eurostat"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{eurostat}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE, message=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+library(pddcs)
+indicators <-
+  indicatorlist[indicatorlist$source == 'eurostat',]$indicator
+```
+
+This vignette provides details on the source data retrieved from Eurostat.
+
+```{r, eval=TRUE, message=FALSE}
+library(pddcs)
+```
+
+### About the source
+
+`fetch_indicator()` with `source = 'eurostat'` uses the R package [eurostat](https://ropengov.github.io/eurostat/index.html) to retrieve data.
+
+Data is retrieved with `eurostat::get_eurostat()` with `keepFlags = TRUE` to ensure that footnotes are included in the returned data. 
+
+Note that values are only returned for EU countries (excluding Cyprus), as well as UK, Norway and Island.
+
+### Available indicators
+
+Currently only the following two indicators are available for Eurostat. Both indicators are from the `demo_gind` dataset in the [Eurostat list of databases](https://ec.europa.eu/eurostat/web/main/data/database).
+
+```{r, echo=TRUE, message=FALSE}
+library(dplyr)
+data(indicatorlist)
+indicatorlist %>% 
+  filter(source == 'eurostat') %>% 
+  select(indicator)
+```
+
+### Examples
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+# Retrieve population and birth rate data
+df <- fetch_indicator(
+  indicator = c('SP.POP.TOTL', 'SP.DYN.CBRT.IN'),
+  source = 'eurostat')
+```
+
+### References
+
+Leo Lahti, Przemyslaw Biecek, Markus Kainu and Janne Huovari. Retrieval and analysis of Eurostat open data with the eurostat package. R Journal 9(1):385-392, 2017. R package version 3.7.1. URL: <https://ropengov.github.io/eurostat/>

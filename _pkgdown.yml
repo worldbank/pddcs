@@ -1,0 +1,41 @@
+url: https://github.com/Aeilert/pddcs/
+articles:
+  - title: "Getting Started"
+    navbar: ~
+    desc: >
+      This vignette provide an introduction to fetching and
+      preparing data for DCS.
+    contents:
+      - introduction
+  - title: "Data Sources"
+    desc: >
+      These vignettes provide details on the available data
+      sources.
+    contents:
+      - eurostat
+      - unicef
+      - unpd
+      - who
+reference:
+- title: "Prepare DCS data"
+  desc: "Functions for fetching and preparing data for DCS upload."
+- contents:
+  - fetch_indicator
+  - compare_with_wdi
+  - format_dcs
+  - write_dcs
+- title: "Datasets"
+  desc: "Internal package datasets."
+- contents:
+  - indicatorlist
+  - bednets
+  - population
+- title: "Internal functions"
+  desc: "Internal functions used to prepare and compare data."
+- contents:
+  - fetch_eurostat
+  - fetch_unicef
+  - fetch_unpd
+  - fetch_who
+  - fetch_wdi
+  - filter_unicef

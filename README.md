@@ -4,11 +4,14 @@
 # pddcs
 
 <!-- badges: start -->
+
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-`pddcs` fetches raw data from different sources and prepares datasets
-for upload to DCS. Current supported sources are UNICEF, WHO, Eurostat
-and UN’s Population Division.
+pddcs is designed to fetch raw data from different sources and prepare
+datasets for upload to DCS. Current supported sources are UNICEF, WHO,
+Eurostat and UN’s Population Division.
 
 ## Installation
 

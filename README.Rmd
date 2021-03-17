@@ -16,20 +16,21 @@ knitr::opts_chunk$set(
 # pddcs
 
 <!-- badges: start -->
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-`pddcs` fetches raw data from different sources and prepares datasets for upload to DCS. Current supported sources are UNICEF, WHO, Eurostat and UN's Population Division. 
+pddcs is designed to fetch raw data from different sources and prepare datasets for upload to DCS. Current supported sources are UNICEF, WHO, Eurostat and UN's Population Division. 
 
 ## Installation
 
 You can install the development version from [GitHub](https://github.com/) with:
 
-``` r
+```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github('Aeilert/pddcs')
 ```
 
-``` r
+```{r, eval = FALSE}
 library(pddcs)
 ```
 
@@ -37,14 +38,14 @@ library(pddcs)
 
 **Fetch a single indicator:** 
 
-``` r
+```{r, eval = FALSE}
 # Fetch population data from Eurostat
 df <- fetch_indicator('SP.POP.TOTL', source = 'eurostat')
 ```
 
 **Fetch multiple indicators:** 
 
-``` r
+```{r, eval = FALSE}
 # Fetch multiple indicators from the same source
 df <- fetch_indicator(
   indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
@@ -58,7 +59,7 @@ df <- fetch_indicator(
 
 **Compare with WDI:**
 
-``` r
+```{r, eval = FALSE}
 # Compare with WDI
 dl <- compare_with_wdi(df)
 str(dl)
@@ -66,7 +67,7 @@ str(dl)
 
 **Format data:**
 
-``` r
+```{r, eval = FALSE}
 # Convert to DCS 'data' format 
 df <- format_dcs(df, type = 'data')
 
@@ -74,7 +75,7 @@ df <- format_dcs(df, type = 'data')
 
 **Write data:**
 
-``` r
+```{r, eval = FALSE}
 # Write to a DCS formatted file  
 write_dcs(df, path = 'data-SP.POP.TOTL-eurostat.xlsx', type = 'data')
 ```

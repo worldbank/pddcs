@@ -26,7 +26,7 @@ send_eurostat_query <- function(indicator) {
     rlang::abort(c('Couldn\'t connect to Eurostat API.',
                  i = 'Check your Internet connection.'))
 
-  # 27 EU countries + UK, NOR & ISL (not Cyprus and Liechtenstein?)
+  # EU countries (excluding Cyprus) + UK, NOR & ISL
   countries <- c('AT', 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', # CY,
                  'EL', 'ES', 'FR', 'HR', 'IT', 'LV', 'LT', 'LU',
                  'HU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SI', 'SK',

@@ -1,0 +1,55 @@
+---
+title: "WHO"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{who}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE, message=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+library(pddcs)
+indicators <-
+  indicatorlist[indicatorlist$source == 'who',]$indicator
+```
+
+This vignette provides details on the source data retrieved from WHO.
+
+```{r, eval=TRUE, message=FALSE}
+library(pddcs)
+```
+
+### About the source 
+
+`fetch_indicator()` with `source = 'who'` retrieves data from the [Global Health Observatory](https://apps.who.int/gho/data/node.resources.api) provided by WHO. 
+
+Note that some indicators are re-scaled before being returned by `fetch_indicator()`. Currently this applies to SH.MED.NUMW.P3, SH.MED.PHYS.ZS and SH.MED.BEDS.ZS, which are all re-scaled from values per 10,000 to values per 1,000. 
+
+### Available indicators
+
+The following `r length(indicators)` indicators are available for WHO.
+
+```{r, echo=TRUE, message=FALSE}
+library(dplyr)
+data(indicatorlist)
+indicatorlist %>% 
+  filter(source == 'who') %>% 
+  select(indicator)
+```
+
+### Examples
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+# Fetch data on hospital beds
+df <- fetch_indicator('SH.MED.BEDS.ZS', source = 'who')
+
+# Fetch data for mortality rate attributed to unsafe water
+df <- fetch_indicator(
+ indicator = c('SH.STA.WASH.P5', 'SH.STA.WASH.FE.P5', 'SH.STA.WASH.MA.P5'),
+ source = 'who')
+```
+
+### References
+
+WHO. Global Health Observatory. https://www.who.int/data/gho

@@ -12,7 +12,7 @@ if (getRversion() >= '2.15.1')
 #' Remove duplicated country-year rows in UNICEF datasets, based on a specified
 #' priority order.
 #'
-#' You can use the abbreviation of survey sources in the `note` column to
+#' The abbreviation of survey sources in the `note` column is used to
 #' prioritize between different surveys if there are duplicated country-years.
 #' Typical use cases are MIS, DHS, MICS and AIS. The surveys are prioritized in
 #' the order they are listed, e.g. if `priority = c('X', 'Y', 'Z')`, then X will
