@@ -21,7 +21,7 @@ Remove duplicated country-year rows in UNICEF datasets, based on a specified
 priority order.
 }
 \details{
-You can use the abbreviation of survey sources in the \code{note} column to
+The abbreviation of survey sources in the \code{note} column is used to
 prioritize between different surveys if there are duplicated country-years.
 Typical use cases are MIS, DHS, MICS and AIS. The surveys are prioritized in
 the order they are listed, e.g. if \code{priority = c('X', 'Y', 'Z')}, then X will
