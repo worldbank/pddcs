@@ -1,0 +1,60 @@
+---
+title: "UNICEF"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{unicef}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+library(pddcs)
+indicators <-
+  indicatorlist[indicatorlist$source == 'unicef',]$indicator
+```
+
+This vignette provides details on the source data retrieved from UNICEF.
+
+```{r, eval=TRUE, message=FALSE}
+library(pddcs)
+```
+
+### About the source
+
+`fetch_indicator()` with `source = 'unicef'` retrieves data from [UNICEF's API service](https://sdmx.data.unicef.org/webservice/data.html).
+
+It is important to note that the UNICEF API is split into multiple databases. The structure of each database does vary, which can result in potential errors or inconsistencies in the output. At the moment no such errors are know, but users should be mindful of the possibility. 
+
+Additionally, the data for some indicators can contain multiple surveys for a specific country-year. This is solved by prioritizing international survey types (i.e. DHS, MICS, MIS and AIS) over national surveys (see `pddcs:::filter_unicef` and `pddcs:::apply_filter_unicef` for details). Still, some countries can have more than one national survey in the same year. Users will need to remove such cases manually. 
+
+### Available indicators
+
+Currently the following `r length(indicators)` indicators are available for UNICEF.
+
+```{r, echo=TRUE, message=FALSE}
+library(dplyr)
+data(indicatorlist)
+indicatorlist %>% 
+  filter(source == 'unicef') %>% 
+  select(indicator)
+```
+
+Several of the indicators are retrieved from the Countdown 2030 coverage (CDCOV) dataflow, but other databases are also used. This includes the Child Protection (PT), Maternal, Child and Newborn Health (MNCH), Nutrition (NUTRITION) and HIV/AIDS (HIV_AIDS) databases. Details on the source used for a specific indicator can be found in `pddcs:::create_url_unicef`.
+
+### Examples
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+# Fetch bed nets data
+df <- fetch_indicator('SH.MLR.NETS.ZS', source = 'unicef')
+
+# Fetch multiple indicators 
+df <- fetch_indicator(
+ indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
+ source = 'unicef')
+```
+
+
+### References
+
+UNICEF. Deploying open data tools and standards to support UNICEF global public indicators. https://data.unicef.org/open-data/  

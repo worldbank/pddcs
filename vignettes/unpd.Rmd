@@ -1,0 +1,55 @@
+---
+title: "UN Population Division"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{unpd}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This vignette provides details on the source data retrieved from UNPD.
+
+```{r, eval=TRUE, message=FALSE}
+library(pddcs)
+```
+
+### About the source
+
+`fetch_indicator()` with `source = 'who'` retrieves data from a series of online Excel sheets from [World Population Prospects 2019](https://population.un.org/wpp/) provided by UN's Population Division.
+
+Both Estimate and Medium variants are retrieved. Data values for the years 2020 - 2050 are estimates.
+
+The use of Excel sheets as source data is likely to change when a new UN API is released.
+
+### Available indicators
+
+Currently the following indicators are available for UNPD.
+
+```{r, echo=TRUE, message=FALSE}
+library(dplyr)
+data(indicatorlist)
+indicatorlist %>% 
+  filter(source == 'unpd') %>% 
+  select(indicator)
+```
+
+Note that the code `SP.POP.AG00.MA.IN` is an exception to how `fetch_indicator()` usually works. Using `indicator = 'SP.POP.AG00.MA.IN'` will return data for all population groups from 0 - 25 years (i.e SP.POP.AG00.MA.IN - SP.POP.AG25.MA.IN).
+
+### Examples
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+# Fetch population data from UNPD
+df <- fetch_indicator('SP.POP.TOTL', source = 'unpd')
+
+# Fetch male population data for all age groups  (0 - 25)
+df <- fetch_indicator('SP.POP.AG00.MA.IN', source = 'unpd')
+```
+
+### References
+
+UN. World Population Prospects 2019. <https://population.un.org/wpp/>
