@@ -20,7 +20,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github('Aeilert/pddcs')
+devtools::install_github('worldbank/pddcs')
 ```
 
 ``` r
