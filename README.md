@@ -50,14 +50,6 @@ df <- fetch_indicator(
   source = c('unicef', 'eurostat'))
 ```
 
-**Compare with WDI:**
-
-``` r
-# Compare with WDI
-dl <- compare_with_wdi(df)
-str(dl)
-```
-
 **Format data:**
 
 ``` r
