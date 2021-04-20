@@ -50,7 +50,7 @@ standardize_wdi <- function(df) {
   names(df) <- c('iso3c', 'year', 'indicator', 'value')
 
   # Select rows with country data
-  df <- df[!df$iso3c %in% wb_aggreate_codes, ]
+  df <- df[!df$iso3c %in% wdi_aggregate_codes, ]
 
   # Add note column
   # df$note <- ''

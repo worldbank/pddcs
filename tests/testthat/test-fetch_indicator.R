@@ -13,8 +13,9 @@ test_that('fetch_indicator() works for a sample of available indicators', {
   skip_if_offline()
   purrr::map2(indicators, sources, .f = function(x, y) {
     df <- fetch_indicator(x, source = y)
-    expect_identical(class(df), 'data.frame')
-    expect_identical(names(df), c('iso3c', 'year', 'indicator', 'value', 'note', 'source'))
+    expect_identical(class(df), c('tbl_df', 'tbl', 'data.frame'))
+    expect_identical(names(df), c('iso3c', 'year', 'indicator', 'value',
+                                  'note', 'source'))
     expect_identical(class(df$iso3c), 'character')
     expect_identical(class(df$year), 'numeric')
     expect_identical(class(df$indicator), 'character')

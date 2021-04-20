@@ -157,56 +157,60 @@ create_url_unicef <- function(indicator) {
 #' @noRd
 recode_unicef_codes <- function(indicator) {
 
-  dplyr::recode(indicator,
-                # Pregnant women receiving prenatal care of at least four visits
-                'SH.STA.ANV4.ZS' = 'A2.PCT..TOTAL',
-                # IPT of malaria in pregnancy (% of pregnant women)
-                'SH.MLR.IPTP.ZS' = 'A3.PCT..TOTAL',
-                # Births attended by skilled health staff (% of total)
-                'SH.STA.BRTC.ZS' = 'A6.PCT..TOTAL',
-                # Use of insecticide-treated bed nets
-                'SH.MLR.NETS.ZS' = 'A16.PCT..TOTAL',
-                # ARI treatment (% of children under 5 taken to a health provider)
-                'SH.STA.ARIC.ZS' = 'A17.PCT..TOTAL',
-                # Diarrhea treatment (ORS packet)
-                'SH.STA.ORTH' = 'A19.PCT..TOTAL',
-                # Exclusive breastfeeding (% of children under 6 months)
-                'SH.STA.BFED.ZS' = 'A26.PCT..TOTAL',
-                # Vitamin A supplementation coverage rate
-                'SN.ITK.VITA.ZS' = 'A29.PCT..TOTAL',
-                # Low-birthweight babies (% of births)
-                'SH.STA.BRTW.ZS' = '.NT_BW_LBW._T._T._T._T._T._T',
-                # Consumption of iodized salt (% of households),
-                'SN.ITK.SALT.ZS' = '.NT_IOD_ANY_TH._T._T._T._T._T._T',
-                # Infant and young child feeding practices, all 3 IYCF
-                'SH.STA.IYCF.ZS' = '.NT_CF_MAD._T.M6T23._T._T._T._T',
-                # Diarrhea treatment (oral rehydration and continued feeding)
-                'SH.STA.ORCF.ZS' = '.MNCH_ORTCF._T.Y0T4._T._T._T._T.',
-                # Pregnant women receiving prenatal care (%)
-                'SH.STA.ANVC.ZS' = '.MNCH_ANC1.F.Y15T49._T._T._T._T.',
-                # Completeness of birth registration (%)
-                'SP.REG.BRTH.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T._T._T',
-                # Completeness of birth registration, urban (%)
-                'SP.REG.BRTH.UR.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.U._T',
-                # Completeness of birth registration, rural (%)
-                'SP.REG.BRTH.RU.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.R._T',
-                # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, female
-                'SH.HIV.KNOW.FE.ZS' = '.HVA_PREV_KNOW.Y15T49.F._T._T.',
-                # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, male
-                'SH.HIV.KNOW.MA.ZS' = '.HVA_PREV_KNOW.Y15T49.M._T._T.',
-                # Condom use at last high-risk sex, adult female (% ages 15-49)
-                'SH.CON.AIDS.FE.ZS' = '.HVA_PREV_CNDM_REG.Y15T49.F._T._T.',
-                # Condom use at last high-risk sex, adult male (% ages 15-49)
-                'SH.CON.AIDS.MA.ZS' = '.HVA_PREV_CNDM_REG.Y15T49.M._T._T.'#,
-                # Comprehensive correct knowledge of HIV/AIDS, ages 15-24, female
-                # 'SH.HIV.1524.KW.FE.ZS' = '.HVA_PREV_KNOW.Y15T19+Y20T24.F._T._T.',
-                # Comprehensive correct knowledge of HIV/AIDS, ages 15-24, male
-                # 'SH.HIV.1524.KW.MA.ZS' = '.HVA_PREV_KNOW.Y15T19+Y20T24.M._T._T.',
-                # Condom use at last high-risk sex, youth female (% ages 15-24)
-                #'SH.CON.1524.HR.FE.ZS' = '.HVA_PREV_CNDM_REG.Y15T19+Y20T24.F._T._T.',
-                # Condom use at last high-risk sex, youth male (% ages 15-24)
-                # 'SH.CON.1524.HR.MA.ZS' = '.HVA_PREV_CNDM_REG.Y15T19+Y20T24.M._T._T.',
-  )
+  out <-
+    dplyr::recode(
+      indicator,
+      # Pregnant women receiving prenatal care of at least four visits
+      'SH.STA.ANV4.ZS' = 'A2.PCT..TOTAL',
+      # IPT of malaria in pregnancy (% of pregnant women)
+      'SH.MLR.IPTP.ZS' = 'A3.PCT..TOTAL',
+      # Births attended by skilled health staff (% of total)
+      'SH.STA.BRTC.ZS' = 'A6.PCT..TOTAL',
+      # Use of insecticide-treated bed nets
+      'SH.MLR.NETS.ZS' = 'A16.PCT..TOTAL',
+      # ARI treatment (% of children under 5 taken to a health provider)
+      'SH.STA.ARIC.ZS' = 'A17.PCT..TOTAL',
+      # Diarrhea treatment (ORS packet)
+      'SH.STA.ORTH' = 'A19.PCT..TOTAL',
+      # Exclusive breastfeeding (% of children under 6 months)
+      'SH.STA.BFED.ZS' = 'A26.PCT..TOTAL',
+      # Vitamin A supplementation coverage rate
+      'SN.ITK.VITA.ZS' = 'A29.PCT..TOTAL',
+      # Low-birthweight babies (% of births)
+      'SH.STA.BRTW.ZS' = '.NT_BW_LBW._T._T._T._T._T._T',
+      # Consumption of iodized salt (% of households),
+      'SN.ITK.SALT.ZS' = '.NT_IOD_ANY_TH._T._T._T._T._T._T',
+      # Infant and young child feeding practices, all 3 IYCF
+      'SH.STA.IYCF.ZS' = '.NT_CF_MAD._T.M6T23._T._T._T._T',
+      # Diarrhea treatment (oral rehydration and continued feeding)
+      'SH.STA.ORCF.ZS' = '.MNCH_ORTCF._T.Y0T4._T._T._T._T.',
+      # Pregnant women receiving prenatal care (%)
+      'SH.STA.ANVC.ZS' = '.MNCH_ANC1.F.Y15T49._T._T._T._T.',
+      # Completeness of birth registration (%)
+      'SP.REG.BRTH.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T._T._T',
+      # Completeness of birth registration, urban (%)
+      'SP.REG.BRTH.UR.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.U._T',
+      # Completeness of birth registration, rural (%)
+      'SP.REG.BRTH.RU.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.R._T',
+      # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, female
+      'SH.HIV.KNOW.FE.ZS' = '.HVA_PREV_KNOW.Y15T49.F._T._T.',
+      # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, male
+      'SH.HIV.KNOW.MA.ZS' = '.HVA_PREV_KNOW.Y15T49.M._T._T.',
+      # Condom use at last high-risk sex, adult female (% ages 15-49)
+      'SH.CON.AIDS.FE.ZS' = '.HVA_PREV_CNDM_REG.Y15T49.F._T._T.',
+      # Condom use at last high-risk sex, adult male (% ages 15-49)
+      'SH.CON.AIDS.MA.ZS' = '.HVA_PREV_CNDM_REG.Y15T49.M._T._T.'#,
+      # Comprehensive correct knowledge of HIV/AIDS, ages 15-24, female
+      # 'SH.HIV.1524.KW.FE.ZS' = '.HVA_PREV_KNOW.Y15T19+Y20T24.F._T._T.',
+      # Comprehensive correct knowledge of HIV/AIDS, ages 15-24, male
+      # 'SH.HIV.1524.KW.MA.ZS' = '.HVA_PREV_KNOW.Y15T19+Y20T24.M._T._T.',
+      # Condom use at last high-risk sex, youth female (% ages 15-24)
+      #'SH.CON.1524.HR.FE.ZS' = '.HVA_PREV_CNDM_REG.Y15T19+Y20T24.F._T._T.',
+      # Condom use at last high-risk sex, youth male (% ages 15-24)
+      # 'SH.CON.1524.HR.MA.ZS' = '.HVA_PREV_CNDM_REG.Y15T19+Y20T24.M._T._T.',
+    )
+
+  return(out)
 }
 
 #' recode_unicef_footnotes

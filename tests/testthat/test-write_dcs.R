@@ -8,12 +8,12 @@ test_that('write_dcs() works correctly', {
   tmp <- write_dcs(bednets_data, type = 'data', path = tempfile(fileext = ".xlsx"))
   expect_identical(readxl::excel_sheets(tmp), 'Sheet1')
   out <- readxl::read_xlsx(tmp)
-  expect_identical(as.data.frame(out), bednets_data)
+  expect_identical(out, bednets_data, ignore_attr = TRUE)
 
   # Metadata format
   tmp <- write_dcs(bednets_meta, type = 'meta', path = tempfile(fileext = ".xlsx"))
   expect_identical(readxl::excel_sheets(tmp), 'Country-Series-Time_Table')
   out <- readxl::read_xlsx(tmp)
-  expect_identical(as.data.frame(out), bednets_meta)
+  expect_identical(out, bednets_meta, ignore_attr = TRUE)
 
 })

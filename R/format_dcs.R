@@ -6,7 +6,7 @@
 #'
 #' @inheritParams compare_with_wdi
 #' @param type character: Type, either 'data' or 'meta'.
-#' @return data.frame
+#' @return tibble
 #' @examples
 #' # Load example data
 #' data("bednets")
@@ -24,9 +24,6 @@ format_dcs <- function(df, type = c('data', 'meta')) {
 
   # Check inputs
   check_inputs_format_dcs(df)
-
-  # Remove rows with missing data
-  df <- df[!is.na(df$value), ]
 
   # Rearrange data
   if (type == 'data') {
