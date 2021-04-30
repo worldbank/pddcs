@@ -12,7 +12,7 @@ fetch_indicator(indicator, source)
 \item{source}{character: Data source.}
 }
 \value{
-data.frame
+tibble
 }
 \description{
 Fetch data for a specified indicator from available sources.

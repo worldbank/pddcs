@@ -25,4 +25,7 @@ indicatorlist <-
   )
 
 # Save file
-usethis::use_data(indicatorlist, overwrite = TRUE)
+usethis::use_data(indicatorlist,
+                  overwrite = TRUE,
+                  compress = 'bzip2',
+                  version = 3)

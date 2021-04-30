@@ -8,7 +8,7 @@
 #'
 #' @param indicator character: A CETS type indicator code. See details.
 #' @param source character: Data source.
-#' @return data.frame
+#' @return tibble
 #' @examples
 #' \dontrun{
 #' # Fetch population data from Eurostat
@@ -48,7 +48,9 @@ fetch_indicator <- function(indicator, source) {
 
   # Combine to data frame
   df <- data.table::rbindlist(dl)
-  df <- as.data.frame(df)
+
+  # Convert to tibble
+  df <- dplyr::tibble(df)
 
   return(df)
 

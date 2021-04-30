@@ -1,10 +1,20 @@
-# NB! Rewrite this to fetch from WDI API
+library(dplyr)
 
-# Create vector of WDI aggregated codes
-x <- wbgUsefulData::wbCountryMeta
-x <- x[x$region_value == 'Aggregates',]
-wb_aggreate_codes <- c(x$iso3, '')
-wb_aggreate_codes <- unique(wb_aggreate_codes)
+# Create vector with WDI years
+wdi_years <- 1960:2020
+
+# Create vectors of WDI country and region codes
+wdi_countries <- wbstats::wb_countries('en')
+wdi_country_codes <- wdi_countries %>%
+  filter(region != 'Aggregates') %>%
+  select(iso3c)
+wdi_country_codes <- wdi_country_codes$iso3c
+wdi_aggregate_codes <- wdi_countries %>%
+  filter(region == 'Aggregates') %>%
+  select(iso3c)
+wdi_aggregate_codes <- wdi_aggregate_codes$iso3c
+wdi_aggregate_codes <-
+  c(wdi_aggregate_codes, '')
 
 # Create vectors with WDI indicator codes
 eurostat_indicators <- c('SP.POP.TOTL', 'SP.DYN.CBRT.IN')
@@ -47,7 +57,11 @@ usethis::use_data(eurostat_indicators,
                   unpd_indicators,
                   unicef_indicators,
                   who_indicators,
-                  wb_aggreate_codes,
                   unicef_survey_acronyms,
+                  wdi_aggregate_codes,
+                  wdi_country_codes,
+                  wdi_years,
                   internal = TRUE,
-                  overwrite = TRUE)
+                  overwrite = TRUE,
+                  compress = 'bzip2',
+                  version = 3)

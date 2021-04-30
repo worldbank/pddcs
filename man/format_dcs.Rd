@@ -13,7 +13,7 @@ format_dcs(df, type = c("data", "meta"))
 \item{type}{character: Type, either 'data' or 'meta'.}
 }
 \value{
-data.frame
+tibble
 }
 \description{
 Convert a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()}} to DCS format.
