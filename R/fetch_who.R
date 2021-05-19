@@ -131,13 +131,13 @@ recode_who_codes <- function(indicator) {
                 'SH.STA.TRAF.FE.P5' = 'RS_198',
                 'SH.STA.TRAF.MA.P5' = 'RS_198',
                 # Prevalence of anaemia in children under 5 years
-                'SH.ANM.CHLD.ZS' = 'ANEMIAU5',
+                'SH.ANM.CHLD.ZS' = 'NUTRITION_ANAEMIA_CHILDREN_PREV',
                 # Prevalence of anaemia in non-pregnant women
-                'SH.ANM.NPRG.ZS' = 'ANEMIANPW',
+                'SH.ANM.NPRG.ZS' = 'NUTRITION_ANAEMIA_NONPREGNANT_PREV',
                 # Prevalence of anaemia in women of reproductive age
-                'SH.ANM.ALLW.ZS' = 'PREVANEMIA',
+                'SH.ANM.ALLW.ZS' = 'NUTRITION_ANAEMIA_REPRODUCTIVEAGE_PREV',
                 # Prevalence of anaemia in pregnant women
-                'SH.PRG.ANEM' = 'ANEMIAPW',
+                'SH.PRG.ANEM' = 'NUTRITION_ANAEMIA_PREGNANT_PREV',
                 # Civil registration coverage of cause-of-death
                 'SP.REG.DTHS.ZS' = 'WHS10_8',
                 # Hospital beds
