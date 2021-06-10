@@ -119,7 +119,9 @@ create_url_unicef <- function(indicator) {
   # Maternal, newborn and child health
   mnch <- c('SH.STA.ORCF.ZS', 'SH.STA.ANVC.ZS')
   # PT - Child Protection
-  pt_cp <- c('SP.REG.BRTH.ZS', 'SP.REG.BRTH.UR.ZS', 'SP.REG.BRTH.RU.ZS')
+  pt_cp <- c('SP.REG.BRTH.ZS', 'SP.REG.BRTH.UR.ZS', 'SP.REG.BRTH.RU.ZS',
+             'SP.REG.BRTH.MA.ZS','SP.REG.BRTH.FE.ZS','SP.M18.2024.FE.ZS',
+             'SP.M15.2024.FE.ZS')
   # HIV_AIDS - HIV/AIDS
   hiv_aids <- c('SH.HIV.KNOW.FE.ZS', 'SH.HIV.KNOW.MA.ZS',
                 'SH.CON.AIDS.FE.ZS', 'SH.CON.AIDS.MA.ZS',
@@ -192,6 +194,14 @@ recode_unicef_codes <- function(indicator) {
       'SP.REG.BRTH.UR.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.U._T',
       # Completeness of birth registration, rural (%)
       'SP.REG.BRTH.RU.ZS' = '.PT_CHLD_Y0T4_REG._T.Y0T4._T._T.R._T',
+      # Completeness of birth registration, male (%)
+      'SP.REG.BRTH.MA.ZS' = '.PT_CHLD_Y0T4_REG.M.Y0T4._T._T._T._T',
+      # Completeness of birth registration, female (%)
+      'SP.REG.BRTH.FE.ZS' = '.PT_CHLD_Y0T4_REG.F.Y0T4._T._T._T._T',
+      # Women who were first married by age 18 (% of women ages 20-24)
+      'SP.M18.2024.FE.ZS' = '.PT_F_20-24_MRD_U18._T.Y20T24._T._T._T',
+      # Women who were first married by age 15 (% of women ages 20-24)
+      'SP.M15.2024.FE.ZS' = '.PT_F_20-24_MRD_U15._T.Y20T24._T._T._T',
       # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, female
       'SH.HIV.KNOW.FE.ZS' = '.HVA_PREV_KNOW.Y15T49.F._T._T.',
       # Comprehensive correct knowledge of HIV/AIDS, ages 15-49, male
@@ -308,7 +318,8 @@ apply_filter_unicef <- function(df) {
       'SH.STA.ANV4.ZS', 'SH.STA.ANVC.ZS', 'SH.STA.BRTC.ZS',
       'SH.STA.BFED.ZS', 'SH.STA.BRTW.ZS', 'SN.ITK.SALT.ZS',
       'SN.ITK.VITA.ZS', 'SP.REG.BRTH.RU.ZS', 'SP.REG.BRTH.UR.ZS',
-      'SP.REG.BRTH.ZS', 'SH.STA.IYCF.ZS')
+      'SP.REG.BRTH.ZS', 'SP.REG.BRTH.MA.ZS', 'SP.REG.BRTH.FE.ZS',
+      'SP.M18.2024.FE.ZS','SP.M15.2024.FE.ZS','SH.STA.IYCF.ZS')
 
   if (any(df$indicator %in% mis_dhs_mics))
     df <- filter_unicef(df, priority =
