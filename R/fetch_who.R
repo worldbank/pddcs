@@ -33,15 +33,19 @@ standardize_who <- function(df, indicator) {
   # Select rows that has no second dimension (eg. AGEGROUP)
   df <- df[is.na(df$Dim2), ]
 
+  # Add note column
+  df$note <- data.table::fifelse(
+    df$Value != '',
+    sprintf('Plausible bound is %s.',
+            gsub('.*[[]|[]]', '', df$Value)),
+    '')
+
   # Add WDI code
   df$indicator <- indicator
 
   # Select and rename columns
-  df <- df[c('SpatialDim', 'TimeDim', 'indicator', 'NumericValue')]
-  names(df) <- c('iso3c', 'year', 'indicator', 'value')
-
-  # Add note column
-  df$note <- ''
+  df <- df[c('SpatialDim', 'TimeDim', 'indicator', 'NumericValue', 'note')]
+  names(df) <- c('iso3c', 'year', 'indicator', 'value', 'note')
 
   # General standardization
   df <- standardize_all(df)
