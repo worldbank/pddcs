@@ -13,7 +13,9 @@ prepare_unodc_homicide(path)
 Prepare UNODC homicide data for DCS upload.
 }
 \examples{
+\dontrun{
 # Prepare data
 df <- prepare_unodc_homicide('homicide_all.xls')
+}
 }
 \keyword{internal}
