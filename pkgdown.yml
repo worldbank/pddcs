@@ -1,0 +1,14 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  eurostat: eurostat.html
+  introduction: introduction.html
+  unicef: unicef.html
+  unpd: unpd.html
+  who: who.html
+last_built: 2021-08-20T13:16Z
+urls:
+  reference: https://worldbank.github.io/pddcs//reference
+  article: https://worldbank.github.io/pddcs//articles
+
