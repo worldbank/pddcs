@@ -7,6 +7,9 @@
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![check-release](https://github.com/worldbank/pddcs/workflows/check-release/badge.svg)](https://github.com/worldbank/pddcs/actions)
+[![test-coverage](https://github.com/worldbank/pddcs/workflows/test-coverage/badge.svg)](https://github.com/worldbank/pddcs/actions)
+[![pkgdown](https://github.com/worldbank/pddcs/workflows/pkgdown/badge.svg)](https://github.com/worldbank/pddcs/actions)
 <!-- badges: end -->
 
 pddcs is designed to fetch raw data from different sources and prepare
