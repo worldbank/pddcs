@@ -31,7 +31,8 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    usethis
+    usethis,
+    markdown
 Imports: 
     httr,
     readxl,
