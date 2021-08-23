@@ -15,15 +15,15 @@
 #' data("bednets")
 #'
 #' # Write DCS 'data' format
-#' df <- format_dcs(bednets, type = 'data')
-#' write_dcs(df, path = 'data-bednets.xlsx', type = 'data')
+#' df <- format_dcs(bednets, type = "data")
+#' write_dcs(df, path = "data-bednets.xlsx", type = "data")
 #'
 #' # Write DCS 'metadata' format
-#' df <- format_dcs(bednets, type = 'meta')
-#' write_dcs(df, path = 'meta-bednets.xlsx', type = 'meta')
+#' df <- format_dcs(bednets, type = "meta")
+#' write_dcs(df, path = "meta-bednets.xlsx", type = "meta")
 #' }
 #' @export
-write_dcs <- function(df, path, type = c('data', 'meta')) {
+write_dcs <- function(df, path, type = c("data", "meta")) {
 
   # Match argument
   type <- match.arg(type)
@@ -32,20 +32,24 @@ write_dcs <- function(df, path, type = c('data', 'meta')) {
   check_inputs_write_dcs(df, path, type)
 
   # Data
-  if (type == 'data') {
-    writexl::write_xlsx(x = list('Sheet1' = df),
-                        path = path,
-                        format_headers = FALSE)
+  if (type == "data") {
+    writexl::write_xlsx(
+      x = list("Sheet1" = df),
+      path = path,
+      format_headers = FALSE
+    )
   }
 
   # Metadata
-  if (type == 'meta') {
-    writexl::write_xlsx(x = list('Country-Series-Time_Table' = df),
-                        path = path,
-                        format_headers = FALSE)
+  if (type == "meta") {
+    writexl::write_xlsx(
+      x = list("Country-Series-Time_Table" = df),
+      path = path,
+      format_headers = FALSE
+    )
   }
 
-  rlang::inform(sprintf('File saved to %s.', path))
+  rlang::inform(sprintf("File saved to %s.", path))
   invisible(path)
 }
 
@@ -57,21 +61,23 @@ check_inputs_write_dcs <- function(df, path, type) {
 
   # Check file extension
   filext <- tools::file_ext(path)
-  if (filext != 'xlsx') {
-    rlang::abort('`path` must have a \'.xlsx\' file extension.')
+  if (filext != "xlsx") {
+    rlang::abort("`path` must have a '.xlsx' file extension.")
   }
 
   # Check for correct columns in data
-  if (type == 'data') {
-    cols <- c('Time', 'Country', 'Series' , 'Scale', 'Data')
-    if (!isTRUE(all.equal(names(df), cols)))
-      rlang::abort('`df` contains invalid columns.')
+  if (type == "data") {
+    cols <- c("Time", "Country", "Series", "Scale", "Data")
+    if (!isTRUE(all.equal(names(df), cols))) {
+      rlang::abort("`df` contains invalid columns.")
+    }
   }
 
   # Check for correct columns in metadata
-  if (type == 'meta') {
-    cols <- c('Country', 'Series', 'Time', 'Footnote')
-    if (!isTRUE(all.equal(names(df), cols)))
-      rlang::abort('`df` contains invalid columns.')
+  if (type == "meta") {
+    cols <- c("Country", "Series", "Time", "Footnote")
+    if (!isTRUE(all.equal(names(df), cols))) {
+      rlang::abort("`df` contains invalid columns.")
+    }
   }
 }

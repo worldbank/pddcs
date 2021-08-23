@@ -32,9 +32,11 @@ create_url_wdi <- function(indicator) {
   #                    length(indicator),
   #                    32500)
 
-  base_url <- paste0('https://api.worldbank.org/v2/country/all/indicator/%s',
-                     '?format=json&per_page=%s&page=1')
-  the_url <- sprintf(base_url,indicator, 32500)
+  base_url <- paste0(
+    "https://api.worldbank.org/v2/country/all/indicator/%s",
+    "?format=json&per_page=%s&page=1"
+  )
+  the_url <- sprintf(base_url, indicator, 32500)
 
   return(the_url)
 }
@@ -46,8 +48,8 @@ create_url_wdi <- function(indicator) {
 standardize_wdi <- function(df) {
 
   # Select columns
-  df <- df[c('countryiso3code', 'date', 'indicator.id', 'value')]
-  names(df) <- c('iso3c', 'year', 'indicator', 'value')
+  df <- df[c("countryiso3code", "date", "indicator.id", "value")]
+  names(df) <- c("iso3c", "year", "indicator", "value")
 
   # Select rows with country data
   df <- df[!df$iso3c %in% wdi_aggregate_codes, ]
@@ -56,14 +58,10 @@ standardize_wdi <- function(df) {
   # df$note <- ''
 
   # Add source column
-  df$source <- 'wdi'
+  df$source <- "wdi"
 
   # General standardization
   df <- standardize_all(df)
 
   return(df)
 }
-
-
-
-

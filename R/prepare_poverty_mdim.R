@@ -6,7 +6,7 @@
 #' @examples
 #' \dontrun{
 #' # Prepare data
-#' df <- prepare_poverty_mdim('wdi_latest.xltm')
+#' df <- prepare_poverty_mdim("wdi_latest.xltm")
 #' }
 #' @keywords internal
 prepare_poverty_mdim <- function(path) {
@@ -15,23 +15,25 @@ prepare_poverty_mdim <- function(path) {
   df <- readxl::read_excel(path, sheet = 2)
 
   # Recode column names
-  names(df) <- c('country', 'indicator', 'year', 'note', 'value')
-  df$source <- 'internal'
+  names(df) <- c("country", "indicator", "year", "note", "value")
+  df$source <- "internal"
 
   # Add country codes
   df$iso3c <-
     countrycode::countrycode(
       df$country,
-      origin = 'country.name', 'iso3c')
-  df$iso3c <- ifelse(df$country == 'Columbia', 'COL', df$iso3c)
+      origin = "country.name", "iso3c"
+    )
+  df$iso3c <- ifelse(df$country == "Columbia", "COL", df$iso3c)
 
   # Rearrange columns
-  df <- df[c('iso3c', 'year', 'indicator',
-             'value', 'note', 'source')]
+  df <- df[c(
+    "iso3c", "year", "indicator",
+    "value", "note", "source"
+  )]
 
   # Convert to tibble
   df <- dplyr::as_tibble(df)
 
   return(df)
-
 }
