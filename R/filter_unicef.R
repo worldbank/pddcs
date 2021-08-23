@@ -2,10 +2,11 @@
 NULL
 
 # Add global variables to avoid NSE notes in R CMD check
-if (getRversion() >= '2.15.1')
+if (getRversion() >= "2.15.1") {
   utils::globalVariables(
-    c('data_keep', 'indicator', 'iso3c', 'year', 'n')
+    c("data_keep", "indicator", "iso3c", "year", "n")
   )
+}
 
 #' Filter UNICEF
 #'
@@ -24,22 +25,22 @@ if (getRversion() >= '2.15.1')
 #' @return data.frame
 #' @keywords internal
 filter_unicef <- function(df, priority) {
-
-  if (length(priority) > 4)
-    rlang::abort('You can\'t have more then four priority items.')
+  if (length(priority) > 4) {
+    rlang::abort("You can't have more then four priority items.")
+  }
 
   # Add count column for duplicated rows
   df <- df %>%
-    dplyr::group_by(iso3c, year, indicator) %>% #source
+    dplyr::group_by(iso3c, year, indicator) %>% # source
     dplyr::mutate(n = dplyr::n())
 
   # Add priority columns
   for (i in seq_along(priority)) {
-    df[paste0('has_pri_', i)] <- grepl(priority[i], df$note)
+    df[paste0("has_pri_", i)] <- grepl(priority[i], df$note)
   }
 
   # Select rows to keep
-  df <- tidyfast::dt_nest(df, iso3c, year, indicator, n) #source
+  df <- tidyfast::dt_nest(df, iso3c, year, indicator, n) # source
   df$data_keep <- purrr::map(df$data, select_unicef_rows)
   df$data <- NULL
   df <- tidyfast::dt_unnest(df, data_keep)
@@ -48,10 +49,9 @@ filter_unicef <- function(df, priority) {
   df <- as.data.frame(df)
 
   # Select columns
-  df <- df[c('iso3c', 'year', 'indicator', 'value', 'note')] #, 'source'
+  df <- df[c("iso3c", "year", "indicator", "value", "note")] # , 'source'
 
   return(df)
-
 }
 
 #' select_unicef_rows
@@ -59,17 +59,18 @@ filter_unicef <- function(df, priority) {
 #' @return data.frame
 #' @noRd
 select_unicef_rows <- function(df) {
-
   df <- as.data.frame(df)
 
   # Return as is if only one row
-  if (nrow(df) == 1) return(df)
+  if (nrow(df) == 1) {
+    return(df)
+  }
 
   # Return as is if there are no priority orders to choose from
-  df_has_pri <- df[grepl('has_pri', names(df))]
+  df_has_pri <- df[grepl("has_pri", names(df))]
   df_has_pri <- as.vector(as.matrix(df_has_pri))
   if (all(df_has_pri == FALSE)) {
-    rlang::inform('Found an instance with no priority. Returning duplicated rows.')
+    rlang::inform("Found an instance with no priority. Returning duplicated rows.")
     return(df)
   }
 
@@ -88,4 +89,3 @@ select_unicef_rows <- function(df) {
 
   return(df)
 }
-

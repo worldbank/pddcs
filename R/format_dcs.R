@@ -12,12 +12,12 @@
 #' data("bednets")
 #'
 #' # Convert to 'data' format
-#' format_dcs(bednets, type = 'data')
+#' format_dcs(bednets, type = "data")
 #'
 #' # Convert to 'metadata' format
-#' format_dcs(bednets, type = 'meta')
+#' format_dcs(bednets, type = "meta")
 #' @export
-format_dcs <- function(df, type = c('data', 'meta')) {
+format_dcs <- function(df, type = c("data", "meta")) {
 
   # Match argument
   type <- match.arg(type)
@@ -26,25 +26,24 @@ format_dcs <- function(df, type = c('data', 'meta')) {
   check_inputs_format_dcs(df)
 
   # Rearrange data
-  if (type == 'data') {
+  if (type == "data") {
     # Add scale column
     df$scale <- 0
     # Select and reorder columns
-    df <- df[c('year', 'iso3c', 'indicator', 'scale', 'value')]
+    df <- df[c("year", "iso3c", "indicator", "scale", "value")]
     # Rename columns
-    names(df) <- c('Time', 'Country', 'Series', 'Scale', 'Data')
-  } else if (type == 'meta') {
+    names(df) <- c("Time", "Country", "Series", "Scale", "Data")
+  } else if (type == "meta") {
     # Select and reorder columns
-    df <- df[c('iso3c', 'indicator', 'year', 'note')]
+    df <- df[c("iso3c", "indicator", "year", "note")]
     # Rename columns
-    names(df) <- c('Country', 'Series', 'Time', 'Footnote')
+    names(df) <- c("Country", "Series", "Time", "Footnote")
   }
 
   # Reformat Time column
-  df$Time <- paste0('YR', df$Time)
+  df$Time <- paste0("YR", df$Time)
 
   return(df)
-
 }
 
 #' check_inputs_format_dcs
@@ -54,8 +53,8 @@ format_dcs <- function(df, type = c('data', 'meta')) {
 check_inputs_format_dcs <- function(df) {
 
   # Check for correct columns
-  cols <- c('iso3c', 'year', 'indicator' , 'value', 'note', 'source')
-  if (!isTRUE(all.equal(names(df), cols)))
-    rlang::abort('`df` contains invalid columns.')
-
+  cols <- c("iso3c", "year", "indicator", "value", "note", "source")
+  if (!isTRUE(all.equal(names(df), cols))) {
+    rlang::abort("`df` contains invalid columns.")
+  }
 }

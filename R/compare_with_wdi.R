@@ -13,7 +13,7 @@
 #' @return list
 #' @examples
 #' # Compare SH.MLR.NETS.ZS data from UNICEF with WDI
-#' data('bednets')
+#' data("bednets")
 #' dl <- compare_with_wdi(bednets)
 #' str(dl)
 #' @export
@@ -25,13 +25,15 @@ compare_with_wdi <- function(df) {
   df_wdi <- as.data.frame(df_wdi)
 
   # Compare datasets (left excluding join)
-  df_diff <-  dplyr::anti_join(df, df_wdi,
-                               by = c('iso3c', 'year',
-                                      'indicator', 'value'))
+  df_diff <- dplyr::anti_join(df, df_wdi,
+    by = c(
+      "iso3c", "year",
+      "indicator", "value"
+    )
+  )
 
   # Create list
   out <- list(source = df, wdi = df_wdi, not_in_wdi = df_diff)
 
   return(out)
-
 }

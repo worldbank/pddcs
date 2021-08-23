@@ -27,6 +27,6 @@ Please also follow these additional guidelines.
 * Respect the architecture and reasoning of the package.single_quotes_linter
 * If possible, keep contributions small enough to easily review manually. It is okay to split up your work into multiple pull requests.
 * For new features or functionality, add tests in `tests`. Tests that can be automated should go in `tests/testthat/`.
-* Format your code according to the [tidyverse style guide](https://style.tidyverse.org/) and check your formatting with the `lint_package()` function from the [`lintr`](https://github.com/jimhester/lintr) package. Note that single quotes and lines of 120 characters are allowed.
+* Format your code according to the [tidyverse style guide](https://style.tidyverse.org/) and check your formatting with the `lint_package()` function from the [`lintr`](https://github.com/jimhester/lintr) package.
 * Check code coverage with `covr::package_coverage()`. Automated tests should cover all the new or changed functionality in your pull request.
 * Run overall package checks with `devtools::check()`.

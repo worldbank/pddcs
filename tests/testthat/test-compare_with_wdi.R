@@ -1,22 +1,33 @@
-data('bednets')
-bednets_compare <- readRDS('../testdata/bednets_compare.RDS')
+data("bednets")
+bednets_compare <- readRDS("../testdata/bednets_compare.RDS")
 
 # Tests
-test_that('compare_with_wdi() works correctly', {
-
+test_that("compare_with_wdi() works correctly", {
   dl <- compare_with_wdi(bednets)
 
   # Names and classes
-  expect_identical(names(dl), c('source', 'wdi', 'not_in_wdi'))
-  expect_identical(names(dl$source),
-                   c('iso3c', 'year', 'indicator',
-                     'value', 'note', 'source'))
-  expect_identical(names(dl$wdi),
-                   c('iso3c', 'year', 'indicator',
-                     'value', 'source'))
-  expect_identical(names(dl$not_in_wdi),
-                   c('iso3c', 'year', 'indicator',
-                     'value', 'note', 'source'))
+  expect_identical(names(dl), c("source", "wdi", "not_in_wdi"))
+  expect_identical(
+    names(dl$source),
+    c(
+      "iso3c", "year", "indicator",
+      "value", "note", "source"
+    )
+  )
+  expect_identical(
+    names(dl$wdi),
+    c(
+      "iso3c", "year", "indicator",
+      "value", "source"
+    )
+  )
+  expect_identical(
+    names(dl$not_in_wdi),
+    c(
+      "iso3c", "year", "indicator",
+      "value", "note", "source"
+    )
+  )
 
   # Source
   # expect_identical(dl$source$iso3c, bednets_compare$source$iso3c)
@@ -41,5 +52,4 @@ test_that('compare_with_wdi() works correctly', {
   # expect_identical(dl$not_in_wdi$note, bednets_compare$not_in_wdi$note)
   # expect_identical(dl$not_in_wdi$source, bednets_compare$not_in_wdi$source)
   # expect_equal(dl$not_in_wdi$value, bednets_compare$not_in_wdi$value)
-
 })
