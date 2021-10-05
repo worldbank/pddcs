@@ -2,7 +2,7 @@ Package: pddcs
 Type: Package
 Title: Prepare data for Data Collection System 
 Date: 2021-05-19
-Version: 0.0.0.9302
+Version: 0.0.0.9400
 Authors@R: 
    c(person(given = "Aleksander",
             family = "Eilertsen",
