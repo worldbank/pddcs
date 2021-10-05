@@ -15,7 +15,7 @@ Prepare SI.RMT.COST data for DCS upload.
 \examples{
 \dontrun{
 # Prepare data
-df <- prepare_poverty_rmt('UN SDG - 10.c_inquiry response.xlsx')
+df <- prepare_poverty_rmt("UN SDG - 10.c_inquiry response.xlsx")
 }
 }
 \keyword{internal}
