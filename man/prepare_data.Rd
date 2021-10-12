@@ -23,6 +23,8 @@ Prepare internal data for DCS upload.
 \examples{
 # Prepare UNODC homicide data
 path <- system.file("extdata",
-  "homicide_all.xlsx", package = "pddcs")
-df <- prepare_data(path, source = 'homicide')
+  "homicide_all.xlsx",
+  package = "pddcs"
+)
+df <- prepare_data(path, source = "homicide")
 }

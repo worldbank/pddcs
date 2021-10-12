@@ -15,7 +15,7 @@ Prepare MDIM poverty data for DCS upload.
 \examples{
 \dontrun{
 # Prepare data
-df <- prepare_poverty_mdim('wdi_latest.xltm')
+df <- prepare_poverty_mdim("wdi_latest.xltm")
 }
 }
 \keyword{internal}

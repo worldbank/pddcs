@@ -25,22 +25,24 @@ See \code{?indicatorlist} for an overview of available indicators.
 \examples{
 \dontrun{
 # Fetch population data from Eurostat
-df <- fetch_indicator('SP.POP.TOTL', source = 'eurostat')
+df <- fetch_indicator("SP.POP.TOTL", source = "eurostat")
 
 # Fetch population data from UNPD
-df <- fetch_indicator('SP.POP.TOTL', source = 'unpd')
+df <- fetch_indicator("SP.POP.TOTL", source = "unpd")
 
 # Fetch bed nets data from UNICEF
-df <- fetch_indicator('SH.MLR.NETS.ZS', source = 'unicef')
+df <- fetch_indicator("SH.MLR.NETS.ZS", source = "unicef")
 
 # Fetch multiple indicators from the same source
 df <- fetch_indicator(
- indicator = c('SH.STA.ANV4.ZS', 'SN.ITK.VITA.ZS'),
- source = 'unicef')
+  indicator = c("SH.STA.ANV4.ZS", "SN.ITK.VITA.ZS"),
+  source = "unicef"
+)
 
 # Fetch multiple indicators from different sources
 df <- fetch_indicator(
- indicator = c('SH.STA.ANV4.ZS', 'SP.POP.TOTL'),
- source = c('unicef', 'eurostat'))
+  indicator = c("SH.STA.ANV4.ZS", "SP.POP.TOTL"),
+  source = c("unicef", "eurostat")
+)
 }
 }

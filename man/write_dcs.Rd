@@ -26,11 +26,11 @@ Collection System.
 data("bednets")
 
 # Write DCS 'data' format
-df <- format_dcs(bednets, type = 'data')
-write_dcs(df, path = 'data-bednets.xlsx', type = 'data')
+df <- format_dcs(bednets, type = "data")
+write_dcs(df, path = "data-bednets.xlsx", type = "data")
 
 # Write DCS 'metadata' format
-df <- format_dcs(bednets, type = 'meta')
-write_dcs(df, path = 'meta-bednets.xlsx', type = 'meta')
+df <- format_dcs(bednets, type = "meta")
+write_dcs(df, path = "meta-bednets.xlsx", type = "meta")
 }
 }

@@ -25,7 +25,7 @@ dataset that are not present in WDI (\code{not_in_wdi}).
 }
 \examples{
 # Compare SH.MLR.NETS.ZS data from UNICEF with WDI
-data('bednets')
+data("bednets")
 dl <- compare_with_wdi(bednets)
 str(dl)
 }
