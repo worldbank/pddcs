@@ -165,6 +165,25 @@ recode_who_codes <- function(indicator) {
     "SH.STA.OWAD.MA.ZS" = "NCD_BMI_25A",
     "SH.STA.OWAD.ZS" = "NCD_BMI_25A",
     # Antenatal care attendees who were positive for syphilis
-    "SH.PRG.SYPH.ZS" = "PercposANC"
+    "SH.PRG.SYPH.ZS" = "PercposANC",
+    # Health expenditure
+    "SH.XPD.CHEX.GD.ZS" =	"GHED_CHEGDP_SHA2011",
+    "SH.XPD.CHEX.PC.CD" =	"GHED_CHE_pc_US_SHA2011",
+    "SH.XPD.CHEX.PP.CD" =	"GHED_CHE_pc_PPP_SHA2011",
+    "SH.XPD.GHED.CH.ZS" =	"GHED_GGHE-DCHE_SHA2011",
+    "SH.XPD.GHED.GE.ZS" =	"GHED_GGHE-DGGE_SHA2011",
+    "SH.XPD.GHED.GD.ZS" =	"GHED_GGHE-DGDP_SHA2011",
+    "SH.XPD.GHED.PC.CD" =	"GHED_GGHE-D_pc_US_SHA2011",
+    "SH.XPD.GHED.PP.CD" =	"GHED_GGHE-D_pc_PPP_SHA2011",
+    "SH.XPD.PVTD.CH.ZS" =	"GHED_PVT-DCHE_SHA2011",
+    "SH.XPD.PVTD.PC.CD" =	"GHED_PVT-D_pc_US_SHA2011",
+    "SH.XPD.PVTD.PP.CD" =	"GHED_PVT-D_pc_PPP_SHA2011",
+    "SH.XPD.EHEX.CH.ZS" =	"GHED_EXTCHE_SHA2011",
+    "SH.XPD.EHEX.PC.CD" =	"GHED_EXT_pc_US_SHA2011",
+    "SH.XPD.EHEX.PP.CD" =	"GHED_EXT_pc_PPP_SHA2011",
+    "SH.XPD.OOPC.CH.ZS" =	"GHED_OOPSCHE_SHA2011",
+    "SH.XPD.OOPC.PC.CD" =	"GHED_OOP_pc_US_SHA2011",
+    "SH.XPD.OOPC.PP.CD" =	"GHED_OOP_pc_PPP_SHA2011"
+
   )
 }
