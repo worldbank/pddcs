@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9302</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
       </span>
     </div>
 
@@ -95,6 +95,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="articles/introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -137,7 +140,7 @@
 <a href="#issues" class="anchor"></a>Issues</h2>
 <ul>
 <li>Before posting a new issue or discussion topic, please take a moment to search for existing similar threads in order to avoid duplication.</li>
-<li>For bug reports: if you can, please install the latest GitHub version of <code>pddcs</code> (i.e. <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("worldbank/pddcs")</a></code>) and verify that the issue still persists.</li>
+<li>For bug reports: if you can, please install the latest GitHub version of <code>pddcs</code> (i.e. <code>remotes::install_github("worldbank/pddcs")</code>) and verify that the issue still persists.</li>
 <li>Describe your issue in prose as clearly and concisely as possible.</li>
 <li>For any problem you identify, post a <a href="https://www.tidyverse.org/help/">minimal reproducible example</a> so the maintainer can troubleshoot. A reproducible example is:
 <ul>
@@ -169,7 +172,7 @@
 <li>If possible, keep contributions small enough to easily review manually. It is okay to split up your work into multiple pull requests.</li>
 <li>For new features or functionality, add tests in <code>tests</code>. Tests that can be automated should go in <code>tests/testthat/</code>.</li>
 <li>Format your code according to the <a href="https://style.tidyverse.org/">tidyverse style guide</a> and check your formatting with the <code>lint_package()</code> function from the <a href="https://github.com/jimhester/lintr"><code>lintr</code></a> package.</li>
-<li>Check code coverage with <code><a href="http://covr.r-lib.org/reference/package_coverage.html">covr::package_coverage()</a></code>. Automated tests should cover all the new or changed functionality in your pull request.</li>
+<li>Check code coverage with <code>covr::package_coverage()</code>. Automated tests should cover all the new or changed functionality in your pull request.</li>
 <li>Run overall package checks with <code>devtools::check()</code>.</li>
 </ul>
 </div>

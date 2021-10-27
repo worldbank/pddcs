@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9302</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
       </span>
     </div>
 
@@ -95,6 +95,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="../articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -130,6 +133,19 @@
       <small>Source: <a href='https://github.com/worldbank/pddcs/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="pddcs-0009400" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9400">
+<a href="#pddcs-0009400" class="anchor"></a>pddcs 0.0.0.9400</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Add a new function <code><a href="../reference/detect_outliers.html">detect_outliers()</a></code>, which detects potential outliers in a single dataset by calculating z-scores/p-values for each <code>value</code> by country.</li>
+<li>Add a new function <code><a href="../reference/compare_datasets.html">compare_datasets()</a></code>, which compares a dataset from source with a dataset in WDI/DCS and identifies differences and potential outliers.</li>
+<li>Add 17 new WHO indicators.</li>
+</ul>
+</div>
+</div>
     <div id="pddcs-0009300" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9300">
 <a href="#pddcs-0009300" class="anchor"></a>pddcs 0.0.0.9300</h1>
@@ -141,9 +157,9 @@
 <code><a href="../reference/format_dcs.html">format_dcs()</a></code> no longer removes missing values.</li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Add a new function <code><a href="../reference/create_blank.html">create_blank()</a></code>, which creates DCS formatted data or metadata datasets with empty values.</li>
 <li>Add a new function <code><a href="../reference/prepare_data.html">prepare_data()</a></code> to prepare internal or manually downloaded datasets for DCS upload.</li>

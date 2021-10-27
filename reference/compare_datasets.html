@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fetch data from WDI — fetch_wdi • pddcs</title>
+<title>Compare datasets — compare_datasets • pddcs</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Fetch data from WDI — fetch_wdi" />
-<meta property="og:description" content="Fetch data from WDI API." />
+<meta property="og:title" content="Compare datasets — compare_datasets" />
+<meta property="og:description" content="Compare new datasets from source with current datasets in WDI/DCS.
+" />
 
 
 
@@ -130,30 +131,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fetch data from WDI</h1>
-    <small class="dont-index">Source: <a href='https://github.com/worldbank/pddcs/blob/master/R/fetch_wdi.R'><code>R/fetch_wdi.R</code></a></small>
-    <div class="hidden name"><code>fetch_wdi.Rd</code></div>
+    <h1>Compare datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/worldbank/pddcs/blob/master/R/compare_datasets.R'><code>R/compare_datasets.R</code></a></small>
+    <div class="hidden name"><code>compare_datasets.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Fetch data from WDI API.</p>
+    <p>Compare new datasets from source with current datasets in WDI/DCS.
+<a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>fetch_wdi</span><span class='op'>(</span><span class='va'>indicator</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compare_datasets</span><span class='op'>(</span><span class='va'>new</span>, <span class='va'>current</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>indicator</th>
-      <td><p>character: A WDI indicator code.</p></td>
+      <th>new</th>
+      <td><p>data.frame: A <code>pddcs</code> formatted data frame.</p></td>
+    </tr>
+    <tr>
+      <th>current</th>
+      <td><p>data.frame: A <code>pddcs</code> formatted data frame.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>numeric: Significance level for a two-tailed test. Defaults to 0.05.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame</p>
+    <p>A tibble with the following columns added to <code>new</code>:</p><ul>
+<li><p><code>current_value</code>: Value in <code>current</code> dataset.</p></li>
+<li><p><code>current_source</code>: Source in <code>current</code> dataset.</p></li>
+<li><p><code>diff</code>: Absolute difference between <code>value</code> and <code>current_value</code>.</p></li>
+<li><p><code>outlier</code>: TRUE if the <code>diff</code> value is an outlier.</p></li>
+<li><p><code>p_value</code>: p-value for the <code>diff</code> value.</p></li>
+<li><p><code>n_diff</code>: Sum of <code>diff</code> by country.</p></li>
+<li><p><code>n_outlier</code>: Sum of <code>outlier</code> by country.</p></li>
+</ul>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The main usage of <code>compare_datasets()</code> is to compare the individual
+country-year values in the new source dataset with the current values in
+WDI/DCS.</p>
+<p>Comparison is done by merging the two datasets (left join on <code>new</code>),
+calculating the absolute difference between the two <code>value</code> columns, and then
+running outlier detection on the <code>diff</code> column.</p>
+<p>Users should look for <strong>both</strong> large differences in values (<code>diff</code>) and large
+p-values (<code>p_value</code>) to identify outliers or other possible unwanted changes
+in the data.</p>
+<p>In the case where a few values for a specific country are substantially
+different from the current dataset in WDI/DCS they should pop out as outliers
+with large p-values. On the other hand it might be the case that most or all
+values for a specific country have changed. In that case it is unlikely to be
+any outliers, but changes can be found by inspecting the <code>diff</code> and
+<code>n_diff</code> columns.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Fetch indicator from source</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_indicator.html'>fetch_indicator</a></span><span class='op'>(</span><span class='st'>"SH.MED.NUMW.P3"</span>, <span class='st'>"who"</span><span class='op'>)</span>
+
+<span class='co'># Compare with WDI</span>
+<span class='va'>dl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compare_with_wdi.html'>compare_with_wdi</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+
+<span class='co'># Compare new (source) and current (WDI) datasets</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>compare_datasets</span><span class='op'>(</span>new <span class='op'>=</span> <span class='va'>dl</span><span class='op'>$</span><span class='va'>source</span>, current <span class='op'>=</span> <span class='va'>dl</span><span class='op'>$</span><span class='va'>wdi</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

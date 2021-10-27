@@ -7,10 +7,16 @@
     <loc>https://worldbank.github.io/pddcs//reference/bednets.html</loc>
   </url>
   <url>
+    <loc>https://worldbank.github.io/pddcs//reference/compare_datasets.html</loc>
+  </url>
+  <url>
     <loc>https://worldbank.github.io/pddcs//reference/compare_with_wdi.html</loc>
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//reference/create_blank.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs//reference/detect_outliers.html</loc>
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//reference/fetch_eurostat.html</loc>
@@ -38,6 +44,9 @@
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//reference/format_dcs.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs//reference/get_outliers.html</loc>
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//reference/indicatorlist.html</loc>
@@ -71,6 +80,9 @@
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//articles/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs//articles/outlier-detection.html</loc>
   </url>
   <url>
     <loc>https://worldbank.github.io/pddcs//articles/unicef.html</loc>
