@@ -9,7 +9,6 @@
 #' @param alpha numeric: Significance level for a two-tailed test. Defaults to 0.05.
 #' @return tibble
 #' @examples
-#'
 #' # Fetch source data
 #' df <- fetch_indicator('SH.MED.PHYS.ZS', source = 'who')
 #'

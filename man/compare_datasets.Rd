@@ -27,6 +27,7 @@ A tibble with the following columns added to \code{new}:
 }
 \description{
 Compare new datasets from source with current datasets in WDI/DCS.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 The main usage of \code{compare_datasets()} is to compare the individual
@@ -35,10 +36,10 @@ WDI/DCS.
 
 Comparison is done by merging the two datasets (left join on \code{new}),
 calculating the absolute difference between the two \code{value} columns, and then
-running outlier detection on \code{diff} column.
+running outlier detection on the \code{diff} column.
 
 Users should look for \strong{both} large differences in values (\code{diff}) and large
-p-values (\code{p_values}) to identify outliers or other possible unwanted changes
+p-values (\code{p_value}) to identify outliers or other possible unwanted changes
 in the data.
 
 In the case where a few values for a specific country are substantially
@@ -47,8 +48,6 @@ with large p-values. On the other hand it might be the case that most or all
 values for a specific country have changed. In that case it is unlikely to be
 any outliers, but changes can be found by inspecting the \code{diff} and
 \code{n_diff} columns.
-
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 

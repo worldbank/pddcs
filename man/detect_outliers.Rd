@@ -24,7 +24,6 @@ Detect outlier values by country.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
-
 # Fetch source data
 df <- fetch_indicator('SH.MED.PHYS.ZS', source = 'who')
 

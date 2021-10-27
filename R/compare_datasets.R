@@ -1,6 +1,8 @@
 #' Compare datasets
 #'
 #' Compare new datasets from source with current datasets in WDI/DCS.
+#
+#' `r lifecycle::badge("experimental")`
 #'
 #' The main usage of `compare_datasets()` is to compare the individual
 #' country-year values in the new source dataset with the current values in
@@ -8,10 +10,10 @@
 #'
 #' Comparison is done by merging the two datasets (left join on `new`),
 #' calculating the absolute difference between the two `value` columns, and then
-#' running outlier detection on `diff` column.
+#' running outlier detection on the `diff` column.
 #'
 #' Users should look for **both** large differences in values (`diff`) and large
-#' p-values (`p_values`) to identify outliers or other possible unwanted changes
+#' p-values (`p_value`) to identify outliers or other possible unwanted changes
 #' in the data.
 #'
 #' In the case where a few values for a specific country are substantially
@@ -20,8 +22,6 @@
 #' values for a specific country have changed. In that case it is unlikely to be
 #' any outliers, but changes can be found by inspecting the `diff` and
 #' `n_diff` columns.
-#'
-#' `r lifecycle::badge("experimental")`
 #'
 #' @param new data.frame: A `pddcs` formatted data frame.
 #' @param current data.frame: A `pddcs` formatted data frame.
@@ -38,7 +38,6 @@
 #' * `n_outlier`: Sum of `outlier` by country.
 #'
 #' @export
-#'
 #' @examples
 #'
 #' \dontrun{
@@ -79,7 +78,5 @@ compare_datasets <- function(new, current, alpha = 0.05)  {
   # Convert to tibble
   df <- tibble::as_tibble(df)
 
-
   return(df)
-
 }

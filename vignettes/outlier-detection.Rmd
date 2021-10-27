@@ -76,7 +76,7 @@ dl <- compare_with_wdi(df)
 
 After fetching the data from both the source and WDI, we can compare the two with `compare_datasets()`. This function takes three main arguments; `new`, a `pddcs` formatted data frame from the source, `current`, a `pddcs` formatted data frame from DCS or WDI, and `alpha`, the significance level for a two-tailed tests. 
 
-Here we use a 0.05 value for alpha, which is the default, but which level you should use will be context dependent. 
+Here we use a 0.05 value for alpha (the default), but which level you should use will be context dependent. 
 
 ```{r, eval=FALSE}
 # Compare new (source) and current (WDI) datasets
