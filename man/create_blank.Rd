@@ -24,20 +24,24 @@ DCS.
 }
 \examples{
 # A specific indicator / country /year
-df <- create_blank('SP.POP.TOTL',
-  iso3c = 'ALB', year = 2014)
+df <- create_blank("SP.POP.TOTL",
+  iso3c = "ALB", year = 2014
+)
 
 # Multiple indicators / countries / years
 df <- create_blank(
-  indicator = c('SP.POP.TOTL', 'SH.MLR.NETS.ZS'),
-  iso3c = c('ALB', 'AGO'),
-  year = 2014:2015)
+  indicator = c("SP.POP.TOTL", "SH.MLR.NETS.ZS"),
+  iso3c = c("ALB", "AGO"),
+  year = 2014:2015
+)
 
 # All countries and years (data)
-df <- create_blank('SP.POP.TOTL',
-  type = 'data')
+df <- create_blank("SP.POP.TOTL",
+  type = "data"
+)
 
 # All countries and years (metadata)
-df <- create_blank('SP.POP.TOTL',
-  type = 'meta')
+df <- create_blank("SP.POP.TOTL",
+  type = "meta"
+)
 }

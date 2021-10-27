@@ -8,3 +8,5 @@ tmp/
 ^docs$
 ^pkgdown$
 ^\.github$
+^doc$
+^Meta$

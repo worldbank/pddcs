@@ -1,3 +1,11 @@
+# pddcs 0.0.0.9400
+
+## New features
+
+* Add a new function `detect_outliers()`, which detects potential outliers in a single dataset by calculating z-scores/p-values for each `value` by country.
+* Add a new function `compare_datasets()`, which compares a dataset from source with a dataset in WDI/DCS and identifies differences and potential outliers.
+* Add 17 new WHO indicators.
+
 # pddcs 0.0.0.9300
 
 ## Breaking changes

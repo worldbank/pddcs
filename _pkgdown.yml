@@ -3,10 +3,11 @@ articles:
   - title: "Getting Started"
     navbar: ~
     desc: >
-      This vignette provide an introduction to fetching and
+      These vignettes provides an introduction to fetching and
       preparing data for DCS.
     contents:
       - introduction
+      - outlier-detection
   - title: "Data Sources"
     desc: >
       These vignettes provide details on the available data

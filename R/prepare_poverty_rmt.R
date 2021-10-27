@@ -65,7 +65,7 @@ prepare_poverty_rmt <- function(path) {
   df_out$source <- "internal"
 
   # Rearrange columns
-  df_out <- df_out[c(
+  df_out <- df_out[, c(
     "iso3c", "year", "indicator",
     "value", "note", "source"
   )]

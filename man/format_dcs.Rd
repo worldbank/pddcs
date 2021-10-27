@@ -26,8 +26,8 @@ Convert a dataset retrieved with \code{\link[=fetch_indicator]{fetch_indicator()
 data("bednets")
 
 # Convert to 'data' format
-format_dcs(bednets, type = 'data')
+format_dcs(bednets, type = "data")
 
 # Convert to 'metadata' format
-format_dcs(bednets, type = 'meta')
+format_dcs(bednets, type = "meta")
 }

@@ -1,0 +1,132 @@
+---
+title: "Outlier detection"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{outlier-detection}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette gives an introduction to outlier detection with the `pddcs` package. 
+
+Users should note that the methods described below are not meant to provide any statistical proof of what constitutes real outliers or incorrect values. They are only meant to give empirical guidance on which observations might warrant further inspection. 
+
+```{r setup}
+library(pddcs)
+```
+
+## Detect outliers in a single dataset 
+
+`detect_outliers()` can be used to detect outlier observations within each country in a single dataset. It does so by calculating the the z-score and p-value for each observation. The function takes two main arguments; `df`, a data frame in `pddcs` format, and `alpha`, the significance level for a two-tailed tests. 
+
+First we need to fetch the data. 
+
+```{r}
+# Fetch data
+df <- fetch_indicator('SH.MED.PHYS.ZS', source = 'who')
+head(df)
+```
+
+We can then run `detect_outliers()` with its default arguments. 
+
+```{r}
+# Detect outliers (alpha = 0.05)
+df2 <- detect_outliers(df)
+head(df2)
+```
+
+The output of `detect_outliers()` is the same data frame we used as input, but with two additional columns; `outlier` is a boolean that indicates whether the z-score and corresponding p-value was above the given significance threshold, while `p_value` is the p-value of the calculation. 
+
+To get an overview of the potential outliers we can simply filter by the `outlier` column. 
+
+```{r}
+df2[df2$outlier, ]
+```
+
+In this case we have `r nrow(df2[df2$outlier, ])` outlier observations. If this seems too many, we can adjust the significance level. 
+
+```{r}
+# Detect outliers (alpha = 0.01)
+df3 <- detect_outliers(df, alpha = 0.01)
+df3[df3$outlier, ]
+```
+
+With a lower significance level we only identify `r nrow(df3[df3$outlier, ])` outliers. 
+
+Which significance level you should use will depend on the indicator and data in question, as well as individual judgement on the risk of Type I and Type II errors. 
+
+## Detect outliers by comparing with an existing dataset 
+
+Another option for outlier detection is to compare the new dataset from the source with the existing data in WDI. In order to do so we first need to fetch data from WDI as well. We can do this with `compare_with_wdi()`. 
+
+```{r}
+# Fetch source data (SH.MED.NUMW.P3)
+df <- fetch_indicator("SH.MED.NUMW.P3", "who")
+
+# Compare with WDI
+dl <- compare_with_wdi(df)
+```
+
+After fetching the data from both the source and WDI, we can compare the two with `compare_datasets()`. This function takes three main arguments; `new`, a `pddcs` formatted data frame from the source, `current`, a `pddcs` formatted data frame from DCS or WDI, and `alpha`, the significance level for a two-tailed tests. 
+
+Here we use a 0.05 value for alpha (the default), but which level you should use will be context dependent. 
+
+```{r, eval=FALSE}
+# Compare new (source) and current (WDI) datasets
+res <- compare_datasets(new = dl$source, current = dl$wdi, alpha = 0.05)
+head(res)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+res <- readRDS('ex1.RDS')
+head(res)
+```
+
+The output of `compare_datasets()` adds seven additional columns to the source dataset. See the documentation (`?compare_datasets`) for details on each column. 
+
+Comparison is done by merging the two datasets (left join on `new`),
+calculating the absolute difference between the two `value` columns, and then
+running outlier detection on the `diff` column. You should look for **both** large differences in values (`diff`) and large p-values (`p_value`) to identify outliers or other possible unwanted changes in the data.
+
+In the case where a few values for a specific country are substantially
+different from the current dataset in WDI they will be identified as outliers
+with large p-values. On the other hand it might be the case that most or all
+values for a specific country have changed. In that case it is unlikely to be
+any outliers, but changes can be found by inspecting the `diff` and
+`n_diff` columns.
+
+A few examples are given below. 
+
+For Australia four values are different then the observations in WDI, but only two of the differences are identified as outliers. 
+
+```{r}
+cols <- c("iso3c", "year", "value", "current_value", "diff", "outlier", "n_diff", "n_outlier")
+res[res$iso3c == "AUS", ][cols]
+```
+
+
+```{r}
+res[res$iso3c == "AUS" & res$diff > 0 & !is.na(res$diff), ][cols]
+```
+
+
+For Belize there are no outlier differences. But 5 out of 9 observations are completely different then in WDI.
+
+```{r}
+res[res$iso3c == "BLZ", ][cols]
+```
+
+Another interesting case is Israel. There are no outliers, but there are minor differences between WDI and WHO for 18 of 25 observations. Since all the differences are quite small everything might be okay. Yet it could still be worth investigating why the value for so many years has changed. 
+
+```{r}
+res[res$iso3c == "ISR", ][cols]
+```
+
+
