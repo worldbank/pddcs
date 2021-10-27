@@ -48,7 +48,10 @@ Imports:
     countrycode,
     eurostat,
     jsonlite,
-    lifecycle
+    lifecycle,
+    tibble,
+    assertthat,
+    tidyr 
 VignetteBuilder: knitr
 RdMacros: lifecycle
 Config/testthat/edition: 3

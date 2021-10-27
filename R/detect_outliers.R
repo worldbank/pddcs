@@ -75,13 +75,13 @@ get_outliers <- function(x, alpha) {
   if (length(x) > 1) {
 
     # z-scores
-    z_scores <- abs((x - mean(x)) / sd(x))
+    z_scores <- abs((x - mean(x)) / stats::sd(x))
 
     # p-values
-    p_values <- pnorm(z_scores)
+    p_values <- stats::pnorm(z_scores)
 
     # Two-tailed test
-    threshold <- qnorm(alpha/2, lower.tail = FALSE)
+    threshold <- stats::qnorm(alpha/2, lower.tail = FALSE)
 
     # Check scores against threshold
     check <- z_scores > threshold
