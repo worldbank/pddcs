@@ -169,8 +169,8 @@ create_url_unicef <- function(indicator) {
 
 #' recode_unicef_codes
 #' @inheritParams fetch_unicef
-#' @return character
 #' @noRd
+#' @return character
 recode_unicef_codes <- function(indicator) {
   out <-
     dplyr::recode(
