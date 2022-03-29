@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -60,8 +56,9 @@
       <a href="../articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
+    </li>
+<li>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -71,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/worldbank/pddcs/">
+  <a href="https://github.com/worldbank/pddcs/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +89,7 @@
       <h1 data-toc-skip>Eurostat</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/master/vignettes/eurostat.Rmd"><code>vignettes/eurostat.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/HEAD/vignettes/eurostat.Rmd" class="external-link"><code>vignettes/eurostat.Rmd</code></a></small>
       <div class="hidden name"><code>eurostat.Rmd</code></div>
 
     </div>
@@ -101,41 +98,41 @@
     
 <p>This vignette provides details on the source data retrieved from Eurostat.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs">pddcs</a></span><span class="op">)</span></code></pre></div>
-<div id="about-the-source" class="section level3">
-<h3 class="hasAnchor">
-<a href="#about-the-source" class="anchor"></a>About the source</h3>
-<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'eurostat'</code> uses the R package <a href="https://ropengov.github.io/eurostat/index.html">eurostat</a> to retrieve data.</p>
-<p>Data is retrieved with <code><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">eurostat::get_eurostat()</a></code> with <code>keepFlags = TRUE</code> to ensure that footnotes are included in the returned data.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs" class="external-link">pddcs</a></span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="about-the-source">About the source<a class="anchor" aria-label="anchor" href="#about-the-source"></a>
+</h3>
+<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'eurostat'</code> uses the R package <a href="https://ropengov.github.io/eurostat/index.html" class="external-link">eurostat</a> to retrieve data.</p>
+<p>Data is retrieved with <code><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html" class="external-link">eurostat::get_eurostat()</a></code> with <code>keepFlags = TRUE</code> to ensure that footnotes are included in the returned data.</p>
 <p>Note that values are only returned for EU countries (excluding Cyprus), as well as UK, Norway and Island.</p>
 </div>
-<div id="available-indicators" class="section level3">
-<h3 class="hasAnchor">
-<a href="#available-indicators" class="anchor"></a>Available indicators</h3>
-<p>Currently only the following two indicators are available for Eurostat. Both indicators are from the <code>demo_gind</code> dataset in the <a href="https://ec.europa.eu/eurostat/web/main/data/database">Eurostat list of databases</a>.</p>
+<div class="section level3">
+<h3 id="available-indicators">Available indicators<a class="anchor" aria-label="anchor" href="#available-indicators"></a>
+</h3>
+<p>Currently only the following two indicators are available for Eurostat. Both indicators are from the <code>demo_gind</code> dataset in the <a href="https://ec.europa.eu/eurostat/web/main/data/database" class="external-link">Eurostat list of databases</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
-<span class="va">indicatorlist</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'eurostat'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
-<pre><code>##        indicator
-## 1    SP.POP.TOTL
-## 2 SP.DYN.CBRT.IN</code></pre>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
+<span class="va">indicatorlist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'eurostat'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##        indicator</span>
+<span class="co">## 1    SP.POP.TOTL</span>
+<span class="co">## 2 SP.DYN.CBRT.IN</span></code></pre>
 </div>
-<div id="examples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
+<div class="section level3">
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve population and birth rate data</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span>
-  indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'SP.POP.TOTL'</span>, <span class="st">'SP.DYN.CBRT.IN'</span><span class="op">)</span>,
+  indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SP.POP.TOTL'</span>, <span class="st">'SP.DYN.CBRT.IN'</span><span class="op">)</span>,
   source <span class="op">=</span> <span class="st">'eurostat'</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="references" class="section level3">
-<h3 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h3>
-<p>Leo Lahti, Przemyslaw Biecek, Markus Kainu and Janne Huovari. Retrieval and analysis of Eurostat open data with the eurostat package. R Journal 9(1):385-392, 2017. R package version 3.7.1. URL: <a href="https://ropengov.github.io/eurostat/" class="uri">https://ropengov.github.io/eurostat/</a></p>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>Leo Lahti, Przemyslaw Biecek, Markus Kainu and Janne Huovari. Retrieval and analysis of Eurostat open data with the eurostat package. R Journal 9(1):385-392, 2017. R package version 3.7.1. URL: <a href="https://ropengov.github.io/eurostat/" class="external-link uri">https://ropengov.github.io/eurostat/</a></p>
 </div>
   </div>
 
@@ -148,11 +145,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Aleksander Eilertsen.</p>
+  <p></p>
+<p>Developed by Aleksander Eilertsen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -160,6 +159,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -1,96 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://worldbank.github.io/pddcs//index.html</loc>
+    <loc>https://worldbank.github.io/pddcs/404.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/bednets.html</loc>
+    <loc>https://worldbank.github.io/pddcs/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/compare_datasets.html</loc>
+    <loc>https://worldbank.github.io/pddcs/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/compare_with_wdi.html</loc>
+    <loc>https://worldbank.github.io/pddcs/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/create_blank.html</loc>
+    <loc>https://worldbank.github.io/pddcs/PULL_REQUEST_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/detect_outliers.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/eurostat.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_eurostat.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_indicator.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/introduction.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_indicator_single.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/outlier-detection.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_unicef.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/unicef.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_unpd.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/unpd.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_wdi.html</loc>
+    <loc>https://worldbank.github.io/pddcs/articles/who.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/fetch_who.html</loc>
+    <loc>https://worldbank.github.io/pddcs/authors.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/filter_unicef.html</loc>
+    <loc>https://worldbank.github.io/pddcs/index.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/format_dcs.html</loc>
+    <loc>https://worldbank.github.io/pddcs/news/index.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/get_outliers.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/bednets.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/indicatorlist.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/compare_datasets.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/population.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/compare_with_wdi.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/prepare_data.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/create_blank.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/prepare_poverty_mdim.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/detect_outliers.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/prepare_poverty_rmt.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_eurostat.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/prepare_unodc_homicide.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_indicator.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/recode_unicef_codes.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_indicator_single.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/reexports.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_unicef.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//reference/write_dcs.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_unpd.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/eurostat.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_wdi.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/introduction.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/fetch_who.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/outlier-detection.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/filter_unicef.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/unicef.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/format_dcs.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/unpd.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/get_outliers.html</loc>
   </url>
   <url>
-    <loc>https://worldbank.github.io/pddcs//articles/who.html</loc>
+    <loc>https://worldbank.github.io/pddcs/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/indicatorlist.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/population.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/prepare_data.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/prepare_poverty_mdim.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/prepare_poverty_rmt.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/prepare_unodc_homicide.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/read_dcs.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://worldbank.github.io/pddcs/reference/write_dcs.html</loc>
   </url>
 </urlset>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -60,8 +56,9 @@
       <a href="../articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
+    </li>
+<li>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -71,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/worldbank/pddcs/">
+  <a href="https://github.com/worldbank/pddcs/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +89,7 @@
       <h1 data-toc-skip>UNICEF</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/master/vignettes/unicef.Rmd"><code>vignettes/unicef.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/HEAD/vignettes/unicef.Rmd" class="external-link"><code>vignettes/unicef.Rmd</code></a></small>
       <div class="hidden name"><code>unicef.Rmd</code></div>
 
     </div>
@@ -101,67 +98,67 @@
     
 <p>This vignette provides details on the source data retrieved from UNICEF.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs">pddcs</a></span><span class="op">)</span></code></pre></div>
-<div id="about-the-source" class="section level3">
-<h3 class="hasAnchor">
-<a href="#about-the-source" class="anchor"></a>About the source</h3>
-<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'unicef'</code> retrieves data from <a href="https://sdmx.data.unicef.org/webservice/data.html">UNICEF’s API service</a>.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs" class="external-link">pddcs</a></span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="about-the-source">About the source<a class="anchor" aria-label="anchor" href="#about-the-source"></a>
+</h3>
+<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'unicef'</code> retrieves data from <a href="https://sdmx.data.unicef.org/webservice/data.html" class="external-link">UNICEF’s API service</a>.</p>
 <p>It is important to note that the UNICEF API is split into multiple databases. The structure of each database does vary, which can result in potential errors or inconsistencies in the output. At the moment no such errors are know, but users should be mindful of the possibility.</p>
 <p>Additionally, the data for some indicators can contain multiple surveys for a specific country-year. This is solved by prioritizing international survey types (i.e. DHS, MICS, MIS and AIS) over national surveys (see <code>pddcs:::filter_unicef</code> and <code>pddcs:::apply_filter_unicef</code> for details). Still, some countries can have more than one national survey in the same year. Users will need to remove such cases manually.</p>
 </div>
-<div id="available-indicators" class="section level3">
-<h3 class="hasAnchor">
-<a href="#available-indicators" class="anchor"></a>Available indicators</h3>
+<div class="section level3">
+<h3 id="available-indicators">Available indicators<a class="anchor" aria-label="anchor" href="#available-indicators"></a>
+</h3>
 <p>Currently the following 24 indicators are available for UNICEF.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
-<span class="va">indicatorlist</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'unicef'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
-<pre><code>##            indicator
-## 1     SH.STA.ANV4.ZS
-## 2     SH.MLR.NETS.ZS
-## 3        SH.STA.ORTH
-## 4     SN.ITK.VITA.ZS
-## 5     SH.MLR.IPTP.ZS
-## 6     SH.STA.ARIC.ZS
-## 7     SH.STA.BRTC.ZS
-## 8     SH.STA.BFED.ZS
-## 9     SH.STA.BRTW.ZS
-## 10    SN.ITK.SALT.ZS
-## 11    SH.STA.IYCF.ZS
-## 12    SH.STA.ORCF.ZS
-## 13    SH.STA.ANVC.ZS
-## 14    SP.REG.BRTH.ZS
-## 15 SP.REG.BRTH.UR.ZS
-## 16 SP.REG.BRTH.RU.ZS
-## 17 SP.REG.BRTH.MA.ZS
-## 18 SP.REG.BRTH.FE.ZS
-## 19 SP.M18.2024.FE.ZS
-## 20 SP.M15.2024.FE.ZS
-## 21 SH.HIV.KNOW.FE.ZS
-## 22 SH.HIV.KNOW.MA.ZS
-## 23 SH.CON.AIDS.FE.ZS
-## 24 SH.CON.AIDS.MA.ZS</code></pre>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
+<span class="va">indicatorlist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'unicef'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##            indicator</span>
+<span class="co">## 1     SH.STA.ANV4.ZS</span>
+<span class="co">## 2     SH.MLR.NETS.ZS</span>
+<span class="co">## 3        SH.STA.ORTH</span>
+<span class="co">## 4     SN.ITK.VITA.ZS</span>
+<span class="co">## 5     SH.MLR.IPTP.ZS</span>
+<span class="co">## 6     SH.STA.ARIC.ZS</span>
+<span class="co">## 7     SH.STA.BRTC.ZS</span>
+<span class="co">## 8     SH.STA.BFED.ZS</span>
+<span class="co">## 9     SH.STA.BRTW.ZS</span>
+<span class="co">## 10    SN.ITK.SALT.ZS</span>
+<span class="co">## 11    SH.STA.IYCF.ZS</span>
+<span class="co">## 12    SH.STA.ORCF.ZS</span>
+<span class="co">## 13    SH.STA.ANVC.ZS</span>
+<span class="co">## 14    SP.REG.BRTH.ZS</span>
+<span class="co">## 15 SP.REG.BRTH.UR.ZS</span>
+<span class="co">## 16 SP.REG.BRTH.RU.ZS</span>
+<span class="co">## 17 SP.REG.BRTH.MA.ZS</span>
+<span class="co">## 18 SP.REG.BRTH.FE.ZS</span>
+<span class="co">## 19 SP.M18.2024.FE.ZS</span>
+<span class="co">## 20 SP.M15.2024.FE.ZS</span>
+<span class="co">## 21 SH.HIV.KNOW.FE.ZS</span>
+<span class="co">## 22 SH.HIV.KNOW.MA.ZS</span>
+<span class="co">## 23 SH.CON.AIDS.FE.ZS</span>
+<span class="co">## 24 SH.CON.AIDS.MA.ZS</span></code></pre>
 <p>Several of the indicators are retrieved from the Countdown 2030 coverage (CDCOV) dataflow, but other databases are also used. This includes the Child Protection (PT), Maternal, Child and Newborn Health (MNCH), Nutrition (NUTRITION) and HIV/AIDS (HIV_AIDS) databases. Details on the source used for a specific indicator can be found in <code>pddcs:::create_url_unicef</code>.</p>
 </div>
-<div id="examples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
+<div class="section level3">
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fetch bed nets data</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span><span class="st">'SH.MLR.NETS.ZS'</span>, source <span class="op">=</span> <span class="st">'unicef'</span><span class="op">)</span>
 
 <span class="co"># Fetch multiple indicators </span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span>
- indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'SH.STA.ANV4.ZS'</span>, <span class="st">'SN.ITK.VITA.ZS'</span><span class="op">)</span>,
+ indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SH.STA.ANV4.ZS'</span>, <span class="st">'SN.ITK.VITA.ZS'</span><span class="op">)</span>,
  source <span class="op">=</span> <span class="st">'unicef'</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="references" class="section level3">
-<h3 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h3>
-<p>UNICEF. Deploying open data tools and standards to support UNICEF global public indicators. <a href="https://data.unicef.org/open-data/" class="uri">https://data.unicef.org/open-data/</a></p>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>UNICEF. Deploying open data tools and standards to support UNICEF global public indicators. <a href="https://data.unicef.org/open-data/" class="external-link uri">https://data.unicef.org/open-data/</a></p>
 </div>
   </div>
 
@@ -174,11 +171,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Aleksander Eilertsen.</p>
+  <p></p>
+<p>Developed by Aleksander Eilertsen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -186,6 +185,8 @@
 
   
 
+
+  
 
   </body>
 </html>

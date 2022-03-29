@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -60,8 +56,9 @@
       <a href="../articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
+    </li>
+<li>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -71,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/worldbank/pddcs/">
+  <a href="https://github.com/worldbank/pddcs/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +89,7 @@
       <h1 data-toc-skip>Outlier detection</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/master/vignettes/outlier-detection.Rmd"><code>vignettes/outlier-detection.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/HEAD/vignettes/outlier-detection.Rmd" class="external-link"><code>vignettes/outlier-detection.Rmd</code></a></small>
       <div class="hidden name"><code>outlier-detection.Rmd</code></div>
 
     </div>
@@ -102,89 +99,87 @@
 <p>This vignette gives an introduction to outlier detection with the <code>pddcs</code> package.</p>
 <p>Users should note that the methods described below are not meant to provide any statistical proof of what constitutes real outliers or incorrect values. They are only meant to give empirical guidance on which observations might warrant further inspection.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs">pddcs</a></span><span class="op">)</span></code></pre></div>
-<div id="detect-outliers-in-a-single-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#detect-outliers-in-a-single-dataset" class="anchor"></a>Detect outliers in a single dataset</h2>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs" class="external-link">pddcs</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="detect-outliers-in-a-single-dataset">Detect outliers in a single dataset<a class="anchor" aria-label="anchor" href="#detect-outliers-in-a-single-dataset"></a>
+</h2>
 <p><code><a href="../reference/detect_outliers.html">detect_outliers()</a></code> can be used to detect outlier observations within each country in a single dataset. It does so by calculating the the z-score and p-value for each observation. The function takes two main arguments; <code>df</code>, a data frame in <code>pddcs</code> format, and <code>alpha</code>, the significance level for a two-tailed tests.</p>
 <p>First we need to fetch the data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fetch data</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span><span class="st">'SH.MED.PHYS.ZS'</span>, source <span class="op">=</span> <span class="st">'who'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 × 6</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span>
 <span class="co">#&gt;   iso3c  year indicator      value note                      source</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                     &lt;chr&gt; </span>
-<span class="co">#&gt; 1 AFG    2001 SH.MED.PHYS.ZS 0.190 Plausible bound is 1.899. who   </span>
-<span class="co">#&gt; 2 AFG    2006 SH.MED.PHYS.ZS 0.160 Plausible bound is 1.596. who   </span>
-<span class="co">#&gt; 3 AFG    2007 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.743. who   </span>
-<span class="co">#&gt; 4 AFG    2008 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.744. who   </span>
-<span class="co">#&gt; 5 AFG    2009 SH.MED.PHYS.ZS 0.213 Plausible bound is 2.126. who   </span>
-<span class="co">#&gt; 6 AFG    2010 SH.MED.PHYS.ZS 0.237 Plausible bound is 2.365. who</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AFG    <span style="text-decoration: underline;">2</span>001 SH.MED.PHYS.ZS 0.190 Plausible bound is 1.899. who   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AFG    <span style="text-decoration: underline;">2</span>006 SH.MED.PHYS.ZS 0.160 Plausible bound is 1.596. who   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AFG    <span style="text-decoration: underline;">2</span>007 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.743. who   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AFG    <span style="text-decoration: underline;">2</span>008 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.744. who   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> AFG    <span style="text-decoration: underline;">2</span>009 SH.MED.PHYS.ZS 0.213 Plausible bound is 2.126. who   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> AFG    <span style="text-decoration: underline;">2</span>010 SH.MED.PHYS.ZS 0.237 Plausible bound is 2.365. who</span></code></pre></div>
 <p>We can then run <code><a href="../reference/detect_outliers.html">detect_outliers()</a></code> with its default arguments.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect outliers (alpha = 0.05)</span>
 <span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/detect_outliers.html">detect_outliers</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 × 8</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span>
 <span class="co">#&gt;   iso3c  year indicator      value note                   source outlier p_value</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;  &lt;lgl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 AFG    2001 SH.MED.PHYS.ZS 0.190 Plausible bound is 1.… who    FALSE     0.805</span>
-<span class="co">#&gt; 2 AFG    2006 SH.MED.PHYS.ZS 0.160 Plausible bound is 1.… who    FALSE     0.930</span>
-<span class="co">#&gt; 3 AFG    2007 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.… who    FALSE     0.880</span>
-<span class="co">#&gt; 4 AFG    2008 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.… who    FALSE     0.880</span>
-<span class="co">#&gt; 5 AFG    2009 SH.MED.PHYS.ZS 0.213 Plausible bound is 2.… who    FALSE     0.655</span>
-<span class="co">#&gt; 6 AFG    2010 SH.MED.PHYS.ZS 0.237 Plausible bound is 2.… who    FALSE     0.535</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AFG    <span style="text-decoration: underline;">2</span>001 SH.MED.PHYS.ZS 0.190 Plausible bound is 1.… who    FALSE     0.848</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AFG    <span style="text-decoration: underline;">2</span>006 SH.MED.PHYS.ZS 0.160 Plausible bound is 1.… who    FALSE     0.955</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AFG    <span style="text-decoration: underline;">2</span>007 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.… who    FALSE     0.914</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AFG    <span style="text-decoration: underline;">2</span>008 SH.MED.PHYS.ZS 0.174 Plausible bound is 1.… who    FALSE     0.914</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> AFG    <span style="text-decoration: underline;">2</span>009 SH.MED.PHYS.ZS 0.213 Plausible bound is 2.… who    FALSE     0.702</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> AFG    <span style="text-decoration: underline;">2</span>010 SH.MED.PHYS.ZS 0.237 Plausible bound is 2.… who    FALSE     0.503</span></code></pre></div>
 <p>The output of <code><a href="../reference/detect_outliers.html">detect_outliers()</a></code> is the same data frame we used as input, but with two additional columns; <code>outlier</code> is a boolean that indicates whether the z-score and corresponding p-value was above the given significance threshold, while <code>p_value</code> is the p-value of the calculation.</p>
 <p>To get an overview of the potential outliers we can simply filter by the <code>outlier</code> column.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df2</span><span class="op">[</span><span class="va">df2</span><span class="op">$</span><span class="va">outlier</span>, <span class="op">]</span>
-<span class="co">#&gt; # A tibble: 70 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 84 × 8</span></span>
 <span class="co">#&gt;    iso3c  year indicator      value note                  source outlier p_value</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;  &lt;lgl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ALB    2018 SH.MED.PHYS.ZS 2.16  Plausible bound is 2… who    TRUE      1.00 </span>
-<span class="co">#&gt;  2 ARM    2017 SH.MED.PHYS.ZS 4.40  Plausible bound is 4… who    TRUE      1.00 </span>
-<span class="co">#&gt;  3 BDI    2017 SH.MED.PHYS.ZS 0.100 Plausible bound is 1… who    TRUE      0.984</span>
-<span class="co">#&gt;  4 BEL    2019 SH.MED.PHYS.ZS 5.96  Plausible bound is 5… who    TRUE      1.00 </span>
-<span class="co">#&gt;  5 BGD    2019 SH.MED.PHYS.ZS 0.637 Plausible bound is 6… who    TRUE      0.981</span>
-<span class="co">#&gt;  6 BGR    2018 SH.MED.PHYS.ZS 4.21  Plausible bound is 4… who    TRUE      0.984</span>
-<span class="co">#&gt;  7 BRA    2019 SH.MED.PHYS.ZS 2.31  Plausible bound is 2… who    TRUE      0.990</span>
-<span class="co">#&gt;  8 CHE    1996 SH.MED.PHYS.ZS 3.23  Plausible bound is 3… who    TRUE      0.999</span>
-<span class="co">#&gt;  9 CHN    2016 SH.MED.PHYS.ZS 1.86  Plausible bound is 1… who    TRUE      0.976</span>
-<span class="co">#&gt; 10 CHN    2017 SH.MED.PHYS.ZS 1.98  Plausible bound is 1… who    TRUE      0.993</span>
-<span class="co">#&gt; # … with 60 more rows</span></code></pre></div>
-<p>In this case we have 70 outlier observations. If this seems too many, we can adjust the significance level.</p>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ALB    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 2.16  Plausible bound is 2… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ALB    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 1.88  Plausible bound is 1… who    TRUE      0.983</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ARM    <span style="text-decoration: underline;">2</span>017 SH.MED.PHYS.ZS 4.40  Plausible bound is 4… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> AUS    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 4.13  Plausible bound is 4… who    TRUE      0.987</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> AZE    <span style="text-decoration: underline;">2</span>019 SH.MED.PHYS.ZS 3.17  Plausible bound is 3… who    TRUE      0.989</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> BEL    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 6.08  Plausible bound is 6… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> BGD    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 0.667 Plausible bound is 6… who    TRUE      0.977</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> BGR    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 4.21  Plausible bound is 4… who    TRUE      0.984</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> BRA    <span style="text-decoration: underline;">2</span>019 SH.MED.PHYS.ZS 2.31  Plausible bound is 2… who    TRUE      0.976</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> CHN    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 2.10  Plausible bound is 2… who    TRUE      0.980</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 74 more rows</span></span></code></pre></div>
+<p>In this case we have 84 outlier observations. If this seems too many, we can adjust the significance level.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Detect outliers (alpha = 0.01)</span>
 <span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/detect_outliers.html">detect_outliers</a></span><span class="op">(</span><span class="va">df</span>, alpha <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>
 <span class="va">df3</span><span class="op">[</span><span class="va">df3</span><span class="op">$</span><span class="va">outlier</span>, <span class="op">]</span>
-<span class="co">#&gt; # A tibble: 18 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 8</span></span>
 <span class="co">#&gt;    iso3c  year indicator      value note                  source outlier p_value</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;  &lt;lgl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ALB    2018 SH.MED.PHYS.ZS 2.16  Plausible bound is 2… who    TRUE      1.00 </span>
-<span class="co">#&gt;  2 ARM    2017 SH.MED.PHYS.ZS 4.40  Plausible bound is 4… who    TRUE      1.00 </span>
-<span class="co">#&gt;  3 BEL    2019 SH.MED.PHYS.ZS 5.96  Plausible bound is 5… who    TRUE      1.00 </span>
-<span class="co">#&gt;  4 CHE    1996 SH.MED.PHYS.ZS 3.23  Plausible bound is 3… who    TRUE      0.999</span>
-<span class="co">#&gt;  5 ESP    1990 SH.MED.PHYS.ZS 2.03  Plausible bound is 2… who    TRUE      0.999</span>
-<span class="co">#&gt;  6 IND    1991 SH.MED.PHYS.ZS 1.22  Plausible bound is 1… who    TRUE      1.00 </span>
-<span class="co">#&gt;  7 JOR    1998 SH.MED.PHYS.ZS 0.989 Plausible bound is 9… who    TRUE      0.999</span>
-<span class="co">#&gt;  8 LTU    2018 SH.MED.PHYS.ZS 6.35  Plausible bound is 6… who    TRUE      1.00 </span>
-<span class="co">#&gt;  9 LVA    1990 SH.MED.PHYS.ZS 4.69  Plausible bound is 4… who    TRUE      0.999</span>
-<span class="co">#&gt; 10 LVA    1991 SH.MED.PHYS.ZS 4.61  Plausible bound is 4… who    TRUE      0.998</span>
-<span class="co">#&gt; 11 MNE    2018 SH.MED.PHYS.ZS 2.76  Plausible bound is 2… who    TRUE      0.999</span>
-<span class="co">#&gt; 12 NIC    2018 SH.MED.PHYS.ZS 1.66  Plausible bound is 1… who    TRUE      0.998</span>
-<span class="co">#&gt; 13 NOR    1993 SH.MED.PHYS.ZS 0.376 Plausible bound is 3… who    TRUE      0.998</span>
-<span class="co">#&gt; 14 NOR    1998 SH.MED.PHYS.ZS 0.529 Plausible bound is 5… who    TRUE      0.997</span>
-<span class="co">#&gt; 15 PHL    2017 SH.MED.PHYS.ZS 0.600 Plausible bound is 6… who    TRUE      0.999</span>
-<span class="co">#&gt; 16 SRB    2016 SH.MED.PHYS.ZS 3.11  Plausible bound is 3… who    TRUE      0.999</span>
-<span class="co">#&gt; 17 TKM    2002 SH.MED.PHYS.ZS 7.09  Plausible bound is 7… who    TRUE      1.00 </span>
-<span class="co">#&gt; 18 TTO    2018 SH.MED.PHYS.ZS 5.41  Plausible bound is 5… who    TRUE      0.996</span></code></pre></div>
-<p>With a lower significance level we only identify 18 outliers.</p>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ALB    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 2.16  Plausible bound is 2… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ARM    <span style="text-decoration: underline;">2</span>017 SH.MED.PHYS.ZS 4.40  Plausible bound is 4… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> BEL    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 6.08  Plausible bound is 6… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> CYP    <span style="text-decoration: underline;">2</span>019 SH.MED.PHYS.ZS 3.14  Plausible bound is 3… who    TRUE      0.996</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ESP    <span style="text-decoration: underline;">1</span>990 SH.MED.PHYS.ZS 2.03  Plausible bound is 2… who    TRUE      0.999</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> HUN    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 6.06  Plausible bound is 6… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ITA    <span style="text-decoration: underline;">1</span>993 SH.MED.PHYS.ZS 5.48  Plausible bound is 5… who    TRUE      0.997</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ITA    <span style="text-decoration: underline;">1</span>994 SH.MED.PHYS.ZS 5.58  Plausible bound is 5… who    TRUE      0.998</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> JOR    <span style="text-decoration: underline;">1</span>998 SH.MED.PHYS.ZS 0.989 Plausible bound is 9… who    TRUE      0.999</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> LTU    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 5.08  Plausible bound is 5… who    TRUE      0.999</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NIC    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 1.66  Plausible bound is 1… who    TRUE      0.998</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> POL    <span style="text-decoration: underline;">2</span>020 SH.MED.PHYS.ZS 3.77  Plausible bound is 3… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">13</span> SRB    <span style="text-decoration: underline;">2</span>016 SH.MED.PHYS.ZS 3.11  Plausible bound is 3… who    TRUE      0.999</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">14</span> SWE    <span style="text-decoration: underline;">2</span>019 SH.MED.PHYS.ZS 7.09  Plausible bound is 7… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TKM    <span style="text-decoration: underline;">2</span>002 SH.MED.PHYS.ZS 7.09  Plausible bound is 7… who    TRUE      1.00 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TTO    <span style="text-decoration: underline;">2</span>018 SH.MED.PHYS.ZS 5.41  Plausible bound is 5… who    TRUE      0.996</span></code></pre></div>
+<p>With a lower significance level we only identify 16 outliers.</p>
 <p>Which significance level you should use will depend on the indicator and data in question, as well as individual judgement on the risk of Type I and Type II errors.</p>
 </div>
-<div id="detect-outliers-by-comparing-with-an-existing-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#detect-outliers-by-comparing-with-an-existing-dataset" class="anchor"></a>Detect outliers by comparing with an existing dataset</h2>
+<div class="section level2">
+<h2 id="detect-outliers-by-comparing-with-an-existing-dataset">Detect outliers by comparing with an existing dataset<a class="anchor" aria-label="anchor" href="#detect-outliers-by-comparing-with-an-existing-dataset"></a>
+</h2>
 <p>Another option for outlier detection is to compare the new dataset from the source with the existing data in WDI. In order to do so we first need to fetch data from WDI as well. We can do this with <code><a href="../reference/compare_with_wdi.html">compare_with_wdi()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fetch source data (SH.MED.NUMW.P3)</span>
@@ -197,81 +192,81 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Compare new (source) and current (WDI) datasets</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_datasets.html">compare_datasets</a></span><span class="op">(</span>new <span class="op">=</span> <span class="va">dl</span><span class="op">$</span><span class="va">source</span>, current <span class="op">=</span> <span class="va">dl</span><span class="op">$</span><span class="va">wdi</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 6 × 13
-#&gt;   iso3c  year indicator  value note    source current_value current_source  diff
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
-#&gt; 1 AFG    2005 SH.MED.NU… 0.582 Plausi… who            0.582 wdi                0
-#&gt; 2 AFG    2006 SH.MED.NU… 0.44  Plausi… who            0.44  wdi                0
-#&gt; 3 AFG    2007 SH.MED.NU… 0.496 Plausi… who            0.496 wdi                0
-#&gt; 4 AFG    2008 SH.MED.NU… 0.497 Plausi… who            0.497 wdi                0
-#&gt; 5 AFG    2009 SH.MED.NU… 0.608 Plausi… who            0.608 wdi                0
-#&gt; 6 AFG    2013 SH.MED.NU… 0.250 Plausi… who            0.250 wdi                0
-#&gt; # … with 4 more variables: outlier &lt;lgl&gt;, p_value &lt;dbl&gt;, n_diff &lt;int&gt;,
-#&gt; #   n_outlier &lt;int&gt;</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 13</span></span>
+<span class="co">#&gt;   iso3c  year indicator    value note  source current_value current_source  diff</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AFG    <span style="text-decoration: underline;">2</span>005 SH.MED.NUMW… 0.582 Plau… who            0.582 wdi                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AFG    <span style="text-decoration: underline;">2</span>006 SH.MED.NUMW… 0.44  Plau… who            0.44  wdi                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AFG    <span style="text-decoration: underline;">2</span>007 SH.MED.NUMW… 0.496 Plau… who            0.496 wdi                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AFG    <span style="text-decoration: underline;">2</span>008 SH.MED.NUMW… 0.497 Plau… who            0.497 wdi                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> AFG    <span style="text-decoration: underline;">2</span>009 SH.MED.NUMW… 0.608 Plau… who            0.608 wdi                0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> AFG    <span style="text-decoration: underline;">2</span>013 SH.MED.NUMW… 0.250 Plau… who            0.250 wdi                0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 4 more variables: outlier &lt;lgl&gt;, p_value &lt;dbl&gt;, n_diff &lt;int&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   n_outlier &lt;int&gt;</span></span></code></pre>
 <p>The output of <code><a href="../reference/compare_datasets.html">compare_datasets()</a></code> adds seven additional columns to the source dataset. See the documentation (<code><a href="../reference/compare_datasets.html">?compare_datasets</a></code>) for details on each column.</p>
 <p>Comparison is done by merging the two datasets (left join on <code>new</code>), calculating the absolute difference between the two <code>value</code> columns, and then running outlier detection on the <code>diff</code> column. You should look for <strong>both</strong> large differences in values (<code>diff</code>) and large p-values (<code>p_value</code>) to identify outliers or other possible unwanted changes in the data.</p>
 <p>In the case where a few values for a specific country are substantially different from the current dataset in WDI they will be identified as outliers with large p-values. On the other hand it might be the case that most or all values for a specific country have changed. In that case it is unlikely to be any outliers, but changes can be found by inspecting the <code>diff</code> and <code>n_diff</code> columns.</p>
 <p>A few examples are given below.</p>
 <p>For Australia four values are different then the observations in WDI, but only two of the differences are identified as outliers.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"iso3c"</span>, <span class="st">"year"</span>, <span class="st">"value"</span>, <span class="st">"current_value"</span>, <span class="st">"diff"</span>, <span class="st">"outlier"</span>, <span class="st">"n_diff"</span>, <span class="st">"n_outlier"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iso3c"</span>, <span class="st">"year"</span>, <span class="st">"value"</span>, <span class="st">"current_value"</span>, <span class="st">"diff"</span>, <span class="st">"outlier"</span>, <span class="st">"n_diff"</span>, <span class="st">"n_outlier"</span><span class="op">)</span>
 <span class="va">res</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">iso3c</span> <span class="op">==</span> <span class="st">"AUS"</span>, <span class="op">]</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 21 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 21 × 8</span></span>
 <span class="co">#&gt;    iso3c  year  value current_value   diff outlier n_diff n_outlier</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 AUS    1996  0.599         10.4   9.76  TRUE         4         2</span>
-<span class="co">#&gt;  2 AUS    2000 10.1           NA    NA     FALSE        4         2</span>
-<span class="co">#&gt;  3 AUS    2001 10.6            9.75  0.847 FALSE        4         2</span>
-<span class="co">#&gt;  4 AUS    2002  9.99          NA    NA     FALSE        4         2</span>
-<span class="co">#&gt;  5 AUS    2003  9.99          NA    NA     FALSE        4         2</span>
-<span class="co">#&gt;  6 AUS    2004 10.2           NA    NA     FALSE        4         2</span>
-<span class="co">#&gt;  7 AUS    2005  9.76           9.76  0     FALSE        4         2</span>
-<span class="co">#&gt;  8 AUS    2006  0.596         10.8  10.2   TRUE         4         2</span>
-<span class="co">#&gt;  9 AUS    2007 10.2           10.2   0     FALSE        4         2</span>
-<span class="co">#&gt; 10 AUS    2008 10.3           10.3   0     FALSE        4         2</span>
-<span class="co">#&gt; # … with 11 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> AUS    <span style="text-decoration: underline;">1</span>996  0.599         10.4   9.76  TRUE         4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> AUS    <span style="text-decoration: underline;">2</span>000 10.1           <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> AUS    <span style="text-decoration: underline;">2</span>001 10.6            9.75  0.847 FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> AUS    <span style="text-decoration: underline;">2</span>002  9.99          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> AUS    <span style="text-decoration: underline;">2</span>003  9.99          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> AUS    <span style="text-decoration: underline;">2</span>004 10.2           <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> AUS    <span style="text-decoration: underline;">2</span>005  9.76           9.76  0     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> AUS    <span style="text-decoration: underline;">2</span>006  0.596         10.8  10.2   TRUE         4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> AUS    <span style="text-decoration: underline;">2</span>007 10.2           10.2   0     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> AUS    <span style="text-decoration: underline;">2</span>008 10.3           10.3   0     FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 11 more rows</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">iso3c</span> <span class="op">==</span> <span class="st">"AUS"</span> <span class="op">&amp;</span> <span class="va">res</span><span class="op">$</span><span class="va">diff</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">diff</span><span class="op">)</span>, <span class="op">]</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 4 × 8</span>
+<code class="sourceCode R"><span class="va">res</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">iso3c</span> <span class="op">==</span> <span class="st">"AUS"</span> <span class="op">&amp;</span> <span class="va">res</span><span class="op">$</span><span class="va">diff</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">diff</span><span class="op">)</span>, <span class="op">]</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 8</span></span>
 <span class="co">#&gt;   iso3c  year  value current_value   diff outlier n_diff n_outlier</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 AUS    1996  0.599         10.4   9.76  TRUE         4         2</span>
-<span class="co">#&gt; 2 AUS    2001 10.6            9.75  0.847 FALSE        4         2</span>
-<span class="co">#&gt; 3 AUS    2006  0.596         10.8  10.2   TRUE         4         2</span>
-<span class="co">#&gt; 4 AUS    2017 14.5           12.6   1.99  FALSE        4         2</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AUS    <span style="text-decoration: underline;">1</span>996  0.599         10.4   9.76  TRUE         4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AUS    <span style="text-decoration: underline;">2</span>001 10.6            9.75  0.847 FALSE        4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AUS    <span style="text-decoration: underline;">2</span>006  0.596         10.8  10.2   TRUE         4         2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AUS    <span style="text-decoration: underline;">2</span>017 14.5           12.6   1.99  FALSE        4         2</span></code></pre></div>
 <p>For Belize there are no outlier differences. But 5 out of 9 observations are completely different then in WDI.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">iso3c</span> <span class="op">==</span> <span class="st">"BLZ"</span>, <span class="op">]</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 9 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span>
 <span class="co">#&gt;   iso3c  year value current_value  diff outlier n_diff n_outlier</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 BLZ    2000  1.23          1.23    0  FALSE        5         0</span>
-<span class="co">#&gt; 2 BLZ    2009  1.81          1.81    0  FALSE        5         0</span>
-<span class="co">#&gt; 3 BLZ    2012  1.10          1.10    0  FALSE        5         0</span>
-<span class="co">#&gt; 4 BLZ    2013  1.96        157.    155. FALSE        5         0</span>
-<span class="co">#&gt; 5 BLZ    2014  2.02        177.    175. FALSE        5         0</span>
-<span class="co">#&gt; 6 BLZ    2015  2.09        174.    172. FALSE        5         0</span>
-<span class="co">#&gt; 7 BLZ    2016  2.14        183.    181. FALSE        5         0</span>
-<span class="co">#&gt; 8 BLZ    2017  2.39        185.    183. FALSE        5         0</span>
-<span class="co">#&gt; 9 BLZ    2018  2.34          2.34    0  FALSE        5         0</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> BLZ    <span style="text-decoration: underline;">2</span>000  1.23          1.23    0  FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> BLZ    <span style="text-decoration: underline;">2</span>009  1.81          1.81    0  FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> BLZ    <span style="text-decoration: underline;">2</span>012  1.10          1.10    0  FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> BLZ    <span style="text-decoration: underline;">2</span>013  1.96        157.    155. FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> BLZ    <span style="text-decoration: underline;">2</span>014  2.02        177.    175. FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> BLZ    <span style="text-decoration: underline;">2</span>015  2.09        174.    172. FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> BLZ    <span style="text-decoration: underline;">2</span>016  2.14        183.    181. FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span> BLZ    <span style="text-decoration: underline;">2</span>017  2.39        185.    183. FALSE        5         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">9</span> BLZ    <span style="text-decoration: underline;">2</span>018  2.34          2.34    0  FALSE        5         0</span></code></pre></div>
 <p>Another interesting case is Israel. There are no outliers, but there are minor differences between WDI and WHO for 18 of 25 observations. Since all the differences are quite small everything might be okay. Yet it could still be worth investigating why the value for so many years has changed.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span><span class="op">[</span><span class="va">res</span><span class="op">$</span><span class="va">iso3c</span> <span class="op">==</span> <span class="st">"ISR"</span>, <span class="op">]</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 25 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 25 × 8</span></span>
 <span class="co">#&gt;    iso3c  year value current_value  diff outlier n_diff n_outlier</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 ISR    1995  8.23          8.23  0    FALSE       18         0</span>
-<span class="co">#&gt;  2 ISR    1996  5.56          5.56  0    FALSE       18         0</span>
-<span class="co">#&gt;  3 ISR    1997  5.50          5.50  0    FALSE       18         0</span>
-<span class="co">#&gt;  4 ISR    1998  5.60          5.60  0    FALSE       18         0</span>
-<span class="co">#&gt;  5 ISR    1999  5.71          5.71  0    FALSE       18         0</span>
-<span class="co">#&gt;  6 ISR    2000  7.76          6.02  1.73 FALSE       18         0</span>
-<span class="co">#&gt;  7 ISR    2001  7.79          6.12  1.68 FALSE       18         0</span>
-<span class="co">#&gt;  8 ISR    2002  7.68          6.05  1.63 FALSE       18         0</span>
-<span class="co">#&gt;  9 ISR    2003  7.34          5.92  1.42 FALSE       18         0</span>
-<span class="co">#&gt; 10 ISR    2004  7.10          5.78  1.32 FALSE       18         0</span>
-<span class="co">#&gt; # … with 15 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ISR    <span style="text-decoration: underline;">1</span>995  8.23          8.23  0    FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ISR    <span style="text-decoration: underline;">1</span>996  5.56          5.56  0    FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ISR    <span style="text-decoration: underline;">1</span>997  5.50          5.50  0    FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ISR    <span style="text-decoration: underline;">1</span>998  5.60          5.60  0    FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ISR    <span style="text-decoration: underline;">1</span>999  5.71          5.71  0    FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ISR    <span style="text-decoration: underline;">2</span>000  7.76          6.02  1.73 FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ISR    <span style="text-decoration: underline;">2</span>001  7.79          6.12  1.68 FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ISR    <span style="text-decoration: underline;">2</span>002  7.68          6.05  1.63 FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ISR    <span style="text-decoration: underline;">2</span>003  7.34          5.92  1.42 FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ISR    <span style="text-decoration: underline;">2</span>004  7.10          5.78  1.32 FALSE       18         0</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 15 more rows</span></span></code></pre></div>
 </div>
   </div>
 
@@ -286,11 +281,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Aleksander Eilertsen.</p>
+  <p></p>
+<p>Developed by Aleksander Eilertsen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -298,6 +295,8 @@
 
   
 
+
+  
 
   </body>
 </html>

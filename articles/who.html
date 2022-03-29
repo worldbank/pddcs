@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pddcs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9400</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -60,8 +56,9 @@
       <a href="../articles/outlier-detection.html">Outlier detection</a>
     </li>
     <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
+    </li>
+<li>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -71,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/worldbank/pddcs/">
+  <a href="https://github.com/worldbank/pddcs/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +89,7 @@
       <h1 data-toc-skip>WHO</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/master/vignettes/who.Rmd"><code>vignettes/who.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/worldbank/pddcs/blob/HEAD/vignettes/who.Rmd" class="external-link"><code>vignettes/who.Rmd</code></a></small>
       <div class="hidden name"><code>who.Rmd</code></div>
 
     </div>
@@ -101,94 +98,94 @@
     
 <p>This vignette provides details on the source data retrieved from WHO.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs">pddcs</a></span><span class="op">)</span></code></pre></div>
-<div id="about-the-source" class="section level3">
-<h3 class="hasAnchor">
-<a href="#about-the-source" class="anchor"></a>About the source</h3>
-<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'who'</code> retrieves data from the <a href="https://apps.who.int/gho/data/node.resources.api">Global Health Observatory</a> provided by WHO.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/worldbank/pddcs" class="external-link">pddcs</a></span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="about-the-source">About the source<a class="anchor" aria-label="anchor" href="#about-the-source"></a>
+</h3>
+<p><code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code> with <code>source = 'who'</code> retrieves data from the <a href="https://apps.who.int/gho/data/node.resources.api" class="external-link">Global Health Observatory</a> provided by WHO.</p>
 <p>Note that some indicators are re-scaled before being returned by <code><a href="../reference/fetch_indicator.html">fetch_indicator()</a></code>. Currently this applies to SH.MED.NUMW.P3, SH.MED.PHYS.ZS and SH.MED.BEDS.ZS, which are all re-scaled from values per 10,000 to values per 1,000.</p>
 </div>
-<div id="available-indicators" class="section level3">
-<h3 class="hasAnchor">
-<a href="#available-indicators" class="anchor"></a>Available indicators</h3>
+<div class="section level3">
+<h3 id="available-indicators">Available indicators<a class="anchor" aria-label="anchor" href="#available-indicators"></a>
+</h3>
 <p>The following 53 indicators are available for WHO.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
-<span class="va">indicatorlist</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'who'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
-<pre><code>##            indicator
-## 1     SH.DYN.NCOM.ZS
-## 2  SH.DYN.NCOM.FE.ZS
-## 3  SH.DYN.NCOM.MA.ZS
-## 4     SH.STA.SUIC.P5
-## 5  SH.STA.SUIC.FE.P5
-## 6  SH.STA.SUIC.MA.P5
-## 7     SH.ALC.PCAP.LI
-## 8  SH.ALC.PCAP.FE.LI
-## 9  SH.ALC.PCAP.MA.LI
-## 10    SH.STA.AIRP.P5
-## 11 SH.STA.AIRP.FE.P5
-## 12 SH.STA.AIRP.MA.P5
-## 13    SH.STA.WASH.P5
-## 14 SH.STA.WASH.FE.P5
-## 15 SH.STA.WASH.MA.P5
-## 16    SH.STA.POIS.P5
-## 17 SH.STA.POIS.P5.MA
-## 18 SH.STA.POIS.P5.FE
-## 19    SH.STA.TRAF.P5
-## 20 SH.STA.TRAF.FE.P5
-## 21 SH.STA.TRAF.MA.P5
-## 22    SH.ANM.CHLD.ZS
-## 23    SH.ANM.NPRG.ZS
-## 24    SH.ANM.ALLW.ZS
-## 25       SH.PRG.ANEM
-## 26    SP.REG.DTHS.ZS
-## 27    SH.MED.BEDS.ZS
-## 28       SH.PRV.SMOK
-## 29    SH.PRV.SMOK.FE
-## 30    SH.PRV.SMOK.MA
-## 31    SH.MED.NUMW.P3
-## 32    SH.MED.PHYS.ZS
-## 33    SH.PRG.SYPH.ZS
-## 34    SH.STA.OWAD.ZS
-## 35 SH.STA.OWAD.FE.ZS
-## 36 SH.STA.OWAD.MA.ZS
-## 37 SH.XPD.CHEX.GD.ZS
-## 38 SH.XPD.CHEX.PC.CD
-## 39 SH.XPD.CHEX.PP.CD
-## 40 SH.XPD.GHED.CH.ZS
-## 41 SH.XPD.GHED.GE.ZS
-## 42 SH.XPD.GHED.GD.ZS
-## 43 SH.XPD.GHED.PC.CD
-## 44 SH.XPD.GHED.PP.CD
-## 45 SH.XPD.PVTD.CH.ZS
-## 46 SH.XPD.PVTD.PC.CD
-## 47 SH.XPD.PVTD.PP.CD
-## 48 SH.XPD.EHEX.CH.ZS
-## 49 SH.XPD.EHEX.PC.CD
-## 50 SH.XPD.EHEX.PP.CD
-## 51 SH.XPD.OOPC.CH.ZS
-## 52 SH.XPD.OOPC.PC.CD
-## 53 SH.XPD.OOPC.PP.CD</code></pre>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">indicatorlist</span><span class="op">)</span>
+<span class="va">indicatorlist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">'who'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##            indicator</span>
+<span class="co">## 1     SH.DYN.NCOM.ZS</span>
+<span class="co">## 2  SH.DYN.NCOM.FE.ZS</span>
+<span class="co">## 3  SH.DYN.NCOM.MA.ZS</span>
+<span class="co">## 4     SH.STA.SUIC.P5</span>
+<span class="co">## 5  SH.STA.SUIC.FE.P5</span>
+<span class="co">## 6  SH.STA.SUIC.MA.P5</span>
+<span class="co">## 7     SH.ALC.PCAP.LI</span>
+<span class="co">## 8  SH.ALC.PCAP.FE.LI</span>
+<span class="co">## 9  SH.ALC.PCAP.MA.LI</span>
+<span class="co">## 10    SH.STA.AIRP.P5</span>
+<span class="co">## 11 SH.STA.AIRP.FE.P5</span>
+<span class="co">## 12 SH.STA.AIRP.MA.P5</span>
+<span class="co">## 13    SH.STA.WASH.P5</span>
+<span class="co">## 14 SH.STA.WASH.FE.P5</span>
+<span class="co">## 15 SH.STA.WASH.MA.P5</span>
+<span class="co">## 16    SH.STA.POIS.P5</span>
+<span class="co">## 17 SH.STA.POIS.P5.MA</span>
+<span class="co">## 18 SH.STA.POIS.P5.FE</span>
+<span class="co">## 19    SH.STA.TRAF.P5</span>
+<span class="co">## 20 SH.STA.TRAF.FE.P5</span>
+<span class="co">## 21 SH.STA.TRAF.MA.P5</span>
+<span class="co">## 22    SH.ANM.CHLD.ZS</span>
+<span class="co">## 23    SH.ANM.NPRG.ZS</span>
+<span class="co">## 24    SH.ANM.ALLW.ZS</span>
+<span class="co">## 25       SH.PRG.ANEM</span>
+<span class="co">## 26    SP.REG.DTHS.ZS</span>
+<span class="co">## 27    SH.MED.BEDS.ZS</span>
+<span class="co">## 28       SH.PRV.SMOK</span>
+<span class="co">## 29    SH.PRV.SMOK.FE</span>
+<span class="co">## 30    SH.PRV.SMOK.MA</span>
+<span class="co">## 31    SH.MED.NUMW.P3</span>
+<span class="co">## 32    SH.MED.PHYS.ZS</span>
+<span class="co">## 33    SH.PRG.SYPH.ZS</span>
+<span class="co">## 34    SH.STA.OWAD.ZS</span>
+<span class="co">## 35 SH.STA.OWAD.FE.ZS</span>
+<span class="co">## 36 SH.STA.OWAD.MA.ZS</span>
+<span class="co">## 37 SH.XPD.CHEX.GD.ZS</span>
+<span class="co">## 38 SH.XPD.CHEX.PC.CD</span>
+<span class="co">## 39 SH.XPD.CHEX.PP.CD</span>
+<span class="co">## 40 SH.XPD.GHED.CH.ZS</span>
+<span class="co">## 41 SH.XPD.GHED.GE.ZS</span>
+<span class="co">## 42 SH.XPD.GHED.GD.ZS</span>
+<span class="co">## 43 SH.XPD.GHED.PC.CD</span>
+<span class="co">## 44 SH.XPD.GHED.PP.CD</span>
+<span class="co">## 45 SH.XPD.PVTD.CH.ZS</span>
+<span class="co">## 46 SH.XPD.PVTD.PC.CD</span>
+<span class="co">## 47 SH.XPD.PVTD.PP.CD</span>
+<span class="co">## 48 SH.XPD.EHEX.CH.ZS</span>
+<span class="co">## 49 SH.XPD.EHEX.PC.CD</span>
+<span class="co">## 50 SH.XPD.EHEX.PP.CD</span>
+<span class="co">## 51 SH.XPD.OOPC.CH.ZS</span>
+<span class="co">## 52 SH.XPD.OOPC.PC.CD</span>
+<span class="co">## 53 SH.XPD.OOPC.PP.CD</span></code></pre>
 </div>
-<div id="examples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
+<div class="section level3">
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fetch data on hospital beds</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span><span class="st">'SH.MED.BEDS.ZS'</span>, source <span class="op">=</span> <span class="st">'who'</span><span class="op">)</span>
 
 <span class="co"># Fetch data for mortality rate attributed to unsafe water</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_indicator.html">fetch_indicator</a></span><span class="op">(</span>
- indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'SH.STA.WASH.P5'</span>, <span class="st">'SH.STA.WASH.FE.P5'</span>, <span class="st">'SH.STA.WASH.MA.P5'</span><span class="op">)</span>,
+ indicator <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'SH.STA.WASH.P5'</span>, <span class="st">'SH.STA.WASH.FE.P5'</span>, <span class="st">'SH.STA.WASH.MA.P5'</span><span class="op">)</span>,
  source <span class="op">=</span> <span class="st">'who'</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="references" class="section level3">
-<h3 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h3>
-<p>WHO. Global Health Observatory. <a href="https://www.who.int/data/gho" class="uri">https://www.who.int/data/gho</a></p>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>WHO. Global Health Observatory. <a href="https://www.who.int/data/gho" class="external-link uri">https://www.who.int/data/gho</a></p>
 </div>
   </div>
 
@@ -201,11 +198,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Aleksander Eilertsen.</p>
+  <p></p>
+<p>Developed by Aleksander Eilertsen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -213,6 +212,8 @@
 
   
 
+
+  
 
   </body>
 </html>
