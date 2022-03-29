@@ -1,4 +1,4 @@
-path <- system.file("extdata",  "Data Nurses and Midwives in DCS.xlsx", package = "pddcs")
+path <- system.file("extdata",  "data-nurses-and-midwives-in-dcs.xlsx", package = "pddcs")
 
 test_that("read_dcs() returns the correct format", {
   df <- read_dcs(path)

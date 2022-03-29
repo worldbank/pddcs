@@ -10,3 +10,4 @@ tmp/
 ^\.github$
 ^doc$
 ^Meta$
+CONTRIBUTING.md

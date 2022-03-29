@@ -11,7 +11,7 @@
 #' @return tibble
 #' @examples
 #' path <- system.file("extdata",
-#'   "Data Nurses and Midwives in DCS.xlsx",
+#'   "data-nurses-and-midwives-in-dcs.xlsx",
 #'    package = "pddcs")
 #' df <- read_dcs(path)
 #' @export
