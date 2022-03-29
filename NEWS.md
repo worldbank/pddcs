@@ -1,3 +1,9 @@
+# pddcs 0.1.0
+
+First release.
+## New features
+
+* Add `read_dcs()`. 
 # pddcs 0.0.0.9400
 
 ## New features
