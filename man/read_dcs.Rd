@@ -17,10 +17,13 @@ Read data from DCS.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Data from DCS needs to be download with Export > Custom > OK. See example
+dataset for the accepted format.
 }
 \examples{
-\dontrun{
-path <- "Data Nurses and Midwives in DCS (SH.MED.NUMW.P3).xlsx"
+path <- system.file("extdata",
+  "Data Nurses and Midwives in DCS.xlsx",
+   package = "pddcs")
 df <- read_dcs(path)
-}
 }

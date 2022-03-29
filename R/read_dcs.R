@@ -4,13 +4,16 @@
 #'
 #' `r lifecycle::badge("experimental")`
 #'
+#' Data from DCS needs to be download with Export > Custom > OK. See example
+#' dataset for the accepted format.
+#'
 #' @param path character: Path to file.
 #' @return tibble
 #' @examples
-#' \dontrun{
-#' path <- "Data Nurses and Midwives in DCS (SH.MED.NUMW.P3).xlsx"
+#' path <- system.file("extdata",
+#'   "Data Nurses and Midwives in DCS.xlsx",
+#'    package = "pddcs")
 #' df <- read_dcs(path)
-#' }
 #' @export
 read_dcs <- function(path) {
 
