@@ -184,6 +184,6 @@ recode_who_codes <- function(indicator) {
     "SH.XPD.OOPC.CH.ZS" =	"GHED_OOPSCHE_SHA2011",
     "SH.XPD.OOPC.PC.CD" =	"GHED_OOP_pc_US_SHA2011",
     "SH.XPD.OOPC.PP.CD" =	"GHED_OOP_pc_PPP_SHA2011"
-
+    #Add new indicator later
   )
 }
