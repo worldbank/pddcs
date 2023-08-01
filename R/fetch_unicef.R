@@ -113,7 +113,7 @@ standardize_unicef <- function(df, indicator) {
 create_url_unicef <- function(indicator) {
 
   # Base URL
-  base_url <- "https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/data/"
+  base_url <- "https://sdmx.data.unicef.org/webservice/data.html"
 
   # Indicator groups
   # Countdown - coverage indicators
