@@ -88,11 +88,10 @@ create_url_who <- function(indicator) {
 
   # Both sex indicators
   btsx_indicators <- c(
-    "SH.DYN.NCOM.ZS", "SH.STA.SUIC.P5",
-    "SH.ALC.PCAP.LI", "SH.STA.AIRP.P5",
-    "SH.STA.POIS.P5", "SH.PRV.SMOK",
-    "SH.STA.OWAD.ZS", "SH.STA.WASH.P5",
-    "SH.STA.TRAF.P5"
+    "SH.DYN.NCOM.ZS", "SH.ALC.PCAP.LI",
+    "SH.STA.AIRP.P5", "SH.STA.POIS.P5",
+    "SH.PRV.SMOK", "SH.STA.OWAD.ZS",
+    "SH.STA.WASH.P5", "SH.STA.TRAF.P5"
   )
 
   # Add filters
@@ -102,6 +101,8 @@ create_url_who <- function(indicator) {
     the_url <- paste0(the_url, "?$filter=Dim1%20eq%20%27FMLE%27")
   } else if (indicator %in% btsx_indicators) {
     the_url <- paste0(the_url, "?$filter=Dim1%20eq%20%27BTSX%27")
+  } else if (indicator %in% c("SH.STA.SUIC.P5")) {
+    the_url <- paste0(the_url, "?$filter=Dim1%20eq%20%27BTSX%27&Dim2%20eq%20%27YEARSALL%27")
   }
 
   return(the_url)

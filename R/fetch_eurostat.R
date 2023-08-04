@@ -21,11 +21,11 @@ fetch_eurostat <- function(indicator) {
 #' @return data.frame
 #' @noRd
 send_eurostat_query <- function(indicator) {
-  if (!eurostat::check_access_to_data()) {
-    rlang::abort(c("Couldn't connect to Eurostat API.",
-      i = "Check your Internet connection."
-    ))
-  }
+  # if (!eurostat::check_access_to_data()) {
+  #   rlang::abort(c("Couldn't connect to Eurostat API.",
+  #     i = "Check your Internet connection."
+  #   ))
+  # }
 
   # EU countries (excluding Cyprus) + UK, NOR & ISL
   countries <- c(
